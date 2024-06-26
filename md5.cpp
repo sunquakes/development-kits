@@ -12,3 +12,7 @@ md5::~md5()
 {
     delete ui;
 }
+
+void md5::on_button_accepted()
+{
+}

@@ -6,46 +6,106 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1122</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>15</y>
-     <width>262</width>
-     <height>258</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QTextEdit" name="textEdit"/>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QLineEdit" name="lineEdit"/>
-    </item>
-   </layout>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" rowspan="3">
+    <widget class="QTextEdit" name="source_text">
+     <property name="minimumSize">
+      <size>
+       <width>460</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>600</width>
+       <height>16777215</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="upper32_label">
+     <property name="text">
+      <string>32[Upper]</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QLineEdit" name="upper32_text"/>
+   </item>
+   <item row="0" column="3">
+    <widget class="QPushButton" name="upper32_copy">
+     <property name="text">
+      <string>Copy</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="lower32_label">
+     <property name="text">
+      <string>32[Lower]</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLineEdit" name="lower32_text"/>
+   </item>
+   <item row="1" column="3">
+    <widget class="QPushButton" name="lower32_copy">
+     <property name="text">
+      <string>Copy</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLabel" name="upper36_label">
+     <property name="text">
+      <string>16[Upper]</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLineEdit" name="upper16_text"/>
+   </item>
+   <item row="2" column="3">
+    <widget class="QPushButton" name="upper16_copy">
+     <property name="text">
+      <string>Copy</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QDialogButtonBox" name="button">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLabel" name="lower16_label">
+     <property name="text">
+      <string>16[Lower]</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QLineEdit" name="lower16_text"/>
+   </item>
+   <item row="3" column="3">
+    <widget class="QPushButton" name="lower16_copy">
+     <property name="text">
+      <string>Copy</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

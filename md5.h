@@ -15,6 +15,11 @@ public:
     explicit md5(QWidget *parent = nullptr);
     ~md5();
 
+private slots:
+    void on_buttonBox_accepted();
+
+    void on_button_accepted();
+
 private:
     Ui::md5 *ui;
 };

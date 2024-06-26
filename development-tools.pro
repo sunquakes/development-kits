@@ -25,3 +25,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+TRANSLATIONS += translations/i18n_zh.ts \
+                 translations/i18n_en.ts
