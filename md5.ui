@@ -38,7 +38,11 @@
     </widget>
    </item>
    <item row="0" column="2">
-    <widget class="QLineEdit" name="upper32_text"/>
+    <widget class="QLineEdit" name="upper32_text">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item row="0" column="3">
     <widget class="QPushButton" name="upper32_copy">
@@ -55,7 +59,11 @@
     </widget>
    </item>
    <item row="1" column="2">
-    <widget class="QLineEdit" name="lower32_text"/>
+    <widget class="QLineEdit" name="lower32_text">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item row="1" column="3">
     <widget class="QPushButton" name="lower32_copy">
@@ -72,7 +80,11 @@
     </widget>
    </item>
    <item row="2" column="2">
-    <widget class="QLineEdit" name="upper16_text"/>
+    <widget class="QLineEdit" name="upper16_text">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item row="2" column="3">
     <widget class="QPushButton" name="upper16_copy">
@@ -82,9 +94,12 @@
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QDialogButtonBox" name="button">
+    <widget class="QDialogButtonBox" name="submit_button">
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Ok|QDialogButtonBox::Reset</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
     </widget>
    </item>
@@ -96,7 +111,11 @@
     </widget>
    </item>
    <item row="3" column="2">
-    <widget class="QLineEdit" name="lower16_text"/>
+    <widget class="QLineEdit" name="lower16_text">
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item row="3" column="3">
     <widget class="QPushButton" name="lower16_copy">
