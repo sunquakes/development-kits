@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     md5 *newMD5Widget = new md5();
-    ui->tabWidget->insertTab(0, newMD5Widget, "New Tab");
+    ui->tabWidget->insertTab(0, newMD5Widget, "md5");
     ui->tabWidget->setCurrentIndex(0);
 }
 
