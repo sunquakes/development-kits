@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <url.h>
 #include <md5.h>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -7,9 +8,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    // md5
     md5 *newMD5Widget = new md5();
     ui->tabWidget->insertTab(0, newMD5Widget, "md5");
     ui->tabWidget->setCurrentIndex(0);
+    // url
+    url *newUrlWidge = new url();
+    ui->tabWidget->insertTab(1, newUrlWidge, "url encode/decode");
 }
 
 MainWindow::~MainWindow()

@@ -68,7 +68,7 @@ void md5::alert(QString text)
     mbox->setWindowTitle(text);
     mbox->setText(text);
     mbox->show();
-    QTimer::singleShot(2000, mbox, SLOT(hide()));
+    QTimer::singleShot(1000, mbox, SLOT(hide()));
 }
 
 
