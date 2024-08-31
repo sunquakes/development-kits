@@ -9,17 +9,20 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    base64.cpp \
     main.cpp \
     mainwindow.cpp \
     md5.cpp \
     url.cpp
 
 HEADERS += \
+    base64.h \
     mainwindow.h \
     md5.h \
     url.h
 
 FORMS += \
+    base64.ui \
     mainwindow.ui \
     md5.ui \
     url.ui

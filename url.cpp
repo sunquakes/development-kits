@@ -33,8 +33,7 @@ void url::on_decodeButton_clicked()
     QString text = ui->textEdit->toPlainText();
     if (!text.isEmpty()) {
         qInfo() << text;
-        QUrl url = QUrl::fromPercentEncoding(text.toUtf8());
-        QString decodedUrl = url.toString();
+        QString decodedUrl = QUrl::fromPercentEncoding(text.toUtf8());
         qInfo() << decodedUrl;
         ui->textEdit->setText(decodedUrl);
     }

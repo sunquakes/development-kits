@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <url.h>
 #include <md5.h>
+#include <base64.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     // url
     url *newUrlWidge = new url();
     ui->tabWidget->insertTab(1, newUrlWidge, "url encode/decode");
+    // base64
+    base64 *newBase64Widge = new base64();
+    ui->tabWidget->insertTab(2, newBase64Widge, "base64 encode/decode");
 }
 
 MainWindow::~MainWindow()
