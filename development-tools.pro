@@ -13,18 +13,21 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     md5.cpp \
+    timestamp.cpp \
     url.cpp
 
 HEADERS += \
     base64.h \
     mainwindow.h \
     md5.h \
+    timestamp.h \
     url.h
 
 FORMS += \
     base64.ui \
     mainwindow.ui \
     md5.ui \
+    timestamp.ui \
     url.ui
 
 # Default rules for deployment.

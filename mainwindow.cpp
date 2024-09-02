@@ -3,6 +3,7 @@
 #include <url.h>
 #include <md5.h>
 #include <base64.h>
+#include <timestamp.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
     // base64
     base64 *newBase64Widge = new base64();
     ui->tabWidget->insertTab(2, newBase64Widge, "base64 encode/decode");
+
+    // timestamp
+    timestamp *newTimestamp = new timestamp();
+    ui->tabWidget->insertTab(3, newTimestamp, "Timestamp");
 }
 
 MainWindow::~MainWindow()
