@@ -10,16 +10,16 @@ timestamp::timestamp(QWidget *parent)
 {
     ui->setupUi(this);
 
-    QLineEdit *test = this->findChild<QLineEdit*>("nowLineEdit");
+    QLineEdit *nowLineEdit = this->findChild<QLineEdit*>("nowLineEdit");
 
-    // Set initial timestamp
-    if (test) {
-        test->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
+    if (nowLineEdit) {
+        nowLineEdit->setText(QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss"));
 
-        // Create a timer to update the timestamp every second
         QTimer *timer = new QTimer(this);
-        connect(timer, &QTimer::timeout, [test]() {
-            test->setText(QString::number(QDateTime::currentSecsSinceEpoch()));
+        connect(timer, &QTimer::timeout, [nowLineEdit, this]() {
+            if (!isStop) {
+                nowLineEdit->setText(QString::number(QDateTime::currentSecsSinceEpoch()));
+            }
         });
         timer->start(1000);  // Update every second
     }
@@ -32,6 +32,70 @@ timestamp::~timestamp()
 
 void timestamp::on_startButton_clicked()
 {
-
+    isStop = false;
 }
 
+
+void timestamp::on_endButton_clicked()
+{
+    isStop = true;
+}
+
+
+void timestamp::on_timestampConvertButton_clicked()
+{
+    ui->timestampLineEdit_2->setText("");
+    QString text = ui->timestampLineEdit->text();
+    if (!text.isEmpty()) {
+        qint64 timestamp = text.toLongLong();
+        QDateTime dateTime;
+        QString dateString;
+        if (ui->timestampComboBox->currentText() == "Second") {
+            dateTime = QDateTime::fromSecsSinceEpoch(timestamp);
+            dateString = dateTime.toString("yyyy-MM-dd HH:mm:ss");
+        } else {
+            dateTime = QDateTime::fromMSecsSinceEpoch(timestamp);
+            dateString = dateTime.toString("yyyy-MM-dd HH:mm:ss.zzz");
+        }
+        ui->timestampLineEdit_2->setText(dateString);
+    }
+}
+
+
+void timestamp::on_datetimeConvertButton_clicked()
+{
+    ui->datetimeLineEdit_2->setText("");
+    QString text = ui->datetimeLineEdit->text();
+    qint64 timestamp;
+    if (!text.isEmpty()) {
+        QDateTime dateTime = QDateTime::fromString(text, "yyyy-MM-dd HH:mm:ss");
+        if (dateTime.isValid()) {
+            if (ui->datetimeComboBox->currentText() == "Second") {
+                timestamp = dateTime.toSecsSinceEpoch();
+            } else {
+                timestamp = dateTime.toMSecsSinceEpoch();
+            }
+            ui->datetimeLineEdit_2->setText(QString::number(timestamp));
+        } else {
+            QDateTime dateTime = QDateTime::fromString(text, "yyyy-MM-dd HH:mm:ss.zzz");
+            if (dateTime.isValid()) {
+                if (ui->datetimeComboBox->currentText() == "Second") {
+                timestamp = dateTime.toSecsSinceEpoch();
+                } else {
+                timestamp = dateTime.toMSecsSinceEpoch();
+                }
+                ui->datetimeLineEdit_2->setText(QString::number(timestamp));
+            }
+        }
+    }
+}
+
+void timestamp::resizeEvent(QResizeEvent *event) {
+    QWidget::resizeEvent(event);
+
+    if (ui->widget) {
+        int x = (width() - ui->widget->width()) / 2;
+        int y = (height() - ui->widget->height()) / 2;
+        ui->widget->move(x, y);
+    }
+}

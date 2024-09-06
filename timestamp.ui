@@ -13,202 +13,199 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="nowLabel">
+  <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>210</y>
-     <width>120</width>
-     <height>30</height>
+     <x>270</x>
+     <y>230</y>
+     <width>671</width>
+     <height>191</height>
     </rect>
    </property>
-   <property name="text">
-    <string>Now Timestamp</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="nowLineEdit">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>210</y>
-     <width>150</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="startButton">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>210</y>
-     <width>70</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Start</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="endButton">
-   <property name="geometry">
-    <rect>
-     <x>670</x>
-     <y>210</y>
-     <width>70</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Stop</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="refreshButton">
-   <property name="geometry">
-    <rect>
-     <x>760</x>
-     <y>210</y>
-     <width>70</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Refresh</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="timestampLabel">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>280</y>
-     <width>120</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Unix Timestamp</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="timestampLineEdit">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>280</y>
-     <width>150</width>
-     <height>30</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="timestampLineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>780</x>
-     <y>280</y>
-     <width>150</width>
-     <height>30</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="timestampConvertButton">
-   <property name="geometry">
-    <rect>
-     <x>690</x>
-     <y>280</y>
-     <width>70</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Convert</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="timestampComboBox">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>280</y>
-     <width>90</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>Second</string>
+   <widget class="QLabel" name="nowLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
     </property>
-   </item>
-   <item>
     <property name="text">
-     <string>Millisecond</string>
+     <string>Now Timestamp</string>
     </property>
-   </item>
-  </widget>
-  <widget class="QLabel" name="datetimeLabel">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>350</y>
-     <width>120</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Date Time</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="datetimeLineEdit">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>350</y>
-     <width>150</width>
-     <height>30</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="datetimeConvertButton">
-   <property name="geometry">
-    <rect>
-     <x>580</x>
-     <y>350</y>
-     <width>70</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Convert</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="datetimeLineEdit_2">
-   <property name="geometry">
-    <rect>
-     <x>670</x>
-     <y>350</y>
-     <width>150</width>
-     <height>30</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="datetimeComboBox">
-   <property name="geometry">
-    <rect>
-     <x>840</x>
-     <y>350</y>
-     <width>90</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <item>
+   </widget>
+   <widget class="QPushButton" name="endButton">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>10</y>
+      <width>70</width>
+      <height>30</height>
+     </rect>
+    </property>
     <property name="text">
-     <string>Second</string>
+     <string>Stop</string>
     </property>
-   </item>
-   <item>
+   </widget>
+   <widget class="QPushButton" name="startButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>10</y>
+      <width>70</width>
+      <height>30</height>
+     </rect>
+    </property>
     <property name="text">
-     <string>Millisecond</string>
+     <string>Start</string>
     </property>
-   </item>
+   </widget>
+   <widget class="QLabel" name="datetimeLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Date Time</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="timestampLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>80</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="timestampConvertButton">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>80</y>
+      <width>70</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Convert</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="datetimeConvertButton">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>150</y>
+      <width>70</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Convert</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="datetimeComboBox">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>150</y>
+      <width>90</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Second</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Millisecond</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLineEdit" name="datetimeLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>150</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nowLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>10</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="datetimeLineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>150</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="timestampLineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>80</y>
+      <width>150</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="timestampLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>80</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Unix Timestamp</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="timestampComboBox">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>80</y>
+      <width>90</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Second</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Millisecond</string>
+     </property>
+    </item>
+   </widget>
   </widget>
  </widget>
  <resources/>
