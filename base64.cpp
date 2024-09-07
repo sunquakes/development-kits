@@ -1,19 +1,19 @@
 #include "base64.h"
 #include "ui_base64.h"
 
-base64::base64(QWidget *parent)
+Base64::Base64(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::base64)
+    , ui(new Ui::Base64)
 {
     ui->setupUi(this);
 }
 
-base64::~base64()
+Base64::~Base64()
 {
     delete ui;
 }
 
-void base64::on_encodeButton_clicked()
+void Base64::on_encodeButton_clicked()
 {
     QString text = ui->textEdit->toPlainText();
     if (!text.isEmpty()) {
@@ -25,7 +25,7 @@ void base64::on_encodeButton_clicked()
 }
 
 
-void base64::on_decodeButton_clicked()
+void Base64::on_decodeButton_clicked()
 {
     QString text = ui->textEdit->toPlainText();
     if (!text.isEmpty()) {
@@ -40,7 +40,7 @@ void base64::on_decodeButton_clicked()
 }
 
 
-void base64::on_clearButton_clicked()
+void Base64::on_clearButton_clicked()
 {
     QString text = ui->textEdit->toPlainText();
     if (!text.isEmpty()) {

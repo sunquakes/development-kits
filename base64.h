@@ -4,16 +4,16 @@
 #include <QWidget>
 
 namespace Ui {
-class base64;
+class Base64;
 }
 
-class base64 : public QWidget
+class Base64 : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit base64(QWidget *parent = nullptr);
-    ~base64();
+    explicit Base64(QWidget *parent = nullptr);
+    ~Base64();
 
 private slots:
     void on_encodeButton_clicked();
@@ -23,7 +23,7 @@ private slots:
     void on_clearButton_clicked();
 
 private:
-    Ui::base64 *ui;
+    Ui::Base64 *ui;
 };
 
 #endif // BASE64_H

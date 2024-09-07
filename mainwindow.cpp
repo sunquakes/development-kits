@@ -4,26 +4,31 @@
 #include <md5.h>
 #include <base64.h>
 #include <timestamp.h>
+#include <JSON.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    // md5
-    md5 *newMD5Widget = new md5();
-    ui->tabWidget->insertTab(0, newMD5Widget, "md5");
+    // Md5
+    Md5 *newMD5Widget = new Md5();
+    ui->tabWidget->insertTab(0, newMD5Widget, "Md5");
     ui->tabWidget->setCurrentIndex(0);
-    // url
-    url *newUrlWidge = new url();
-    ui->tabWidget->insertTab(1, newUrlWidge, "url encode/decode");
-    // base64
-    base64 *newBase64Widge = new base64();
-    ui->tabWidget->insertTab(2, newBase64Widge, "base64 encode/decode");
+    // Url
+    Url *newUrlWidge = new Url();
+    ui->tabWidget->insertTab(1, newUrlWidge, "Url Encode/Decode");
+    // Base64
+    Base64 *newBase64Widge = new Base64();
+    ui->tabWidget->insertTab(2, newBase64Widge, "Base64 Encode/Decode");
 
-    // timestamp
-    timestamp *newTimestamp = new timestamp();
+    // Timestamp
+    Timestamp *newTimestamp = new Timestamp();
     ui->tabWidget->insertTab(3, newTimestamp, "Timestamp");
+
+    // JSON
+    JSON *newJSON = new JSON();
+    ui->tabWidget->insertTab(4, newJSON, "JSON Format");
 }
 
 MainWindow::~MainWindow()

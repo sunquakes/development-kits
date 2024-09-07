@@ -4,17 +4,17 @@
 #include <QWidget>
 
 namespace Ui {
-class timestamp;
+class Timestamp;
 }
 
-class timestamp : public QWidget
+class Timestamp : public QWidget
 {
     Q_OBJECT
 
 
 public:
-    explicit timestamp(QWidget *parent = nullptr);
-    ~timestamp();
+    explicit Timestamp(QWidget *parent = nullptr);
+    ~Timestamp();
 
 private slots:
     void on_startButton_clicked();
@@ -26,7 +26,7 @@ private slots:
     void on_datetimeConvertButton_clicked();
 
 private:
-    Ui::timestamp *ui;
+    Ui::Timestamp *ui;
 
     bool isStop = false;
 

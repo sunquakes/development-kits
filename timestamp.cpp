@@ -4,9 +4,9 @@
 #include <QDateTime>
 #include <QTimer>
 
-timestamp::timestamp(QWidget *parent)
+Timestamp::Timestamp(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::timestamp)
+    , ui(new Ui::Timestamp)
 {
     ui->setupUi(this);
 
@@ -25,24 +25,24 @@ timestamp::timestamp(QWidget *parent)
     }
 }
 
-timestamp::~timestamp()
+Timestamp::~Timestamp()
 {
     delete ui;
 }
 
-void timestamp::on_startButton_clicked()
+void Timestamp::on_startButton_clicked()
 {
     isStop = false;
 }
 
 
-void timestamp::on_endButton_clicked()
+void Timestamp::on_endButton_clicked()
 {
     isStop = true;
 }
 
 
-void timestamp::on_timestampConvertButton_clicked()
+void Timestamp::on_timestampConvertButton_clicked()
 {
     ui->timestampLineEdit_2->setText("");
     QString text = ui->timestampLineEdit->text();
@@ -62,7 +62,7 @@ void timestamp::on_timestampConvertButton_clicked()
 }
 
 
-void timestamp::on_datetimeConvertButton_clicked()
+void Timestamp::on_datetimeConvertButton_clicked()
 {
     ui->datetimeLineEdit_2->setText("");
     QString text = ui->datetimeLineEdit->text();
@@ -90,7 +90,7 @@ void timestamp::on_datetimeConvertButton_clicked()
     }
 }
 
-void timestamp::resizeEvent(QResizeEvent *event) {
+void Timestamp::resizeEvent(QResizeEvent *event) {
     QWidget::resizeEvent(event);
 
     if (ui->widget) {

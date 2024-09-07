@@ -4,16 +4,16 @@
 #include <QWidget>
 
 namespace Ui {
-class url;
+class Url;
 }
 
-class url : public QWidget
+class Url : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit url(QWidget *parent = nullptr);
-    ~url();
+    explicit Url(QWidget *parent = nullptr);
+    ~Url();
 
 private slots:
     void on_encodeButton_clicked();
@@ -23,7 +23,7 @@ private slots:
     void on_clearButton_clicked();
 
 private:
-    Ui::url *ui;
+    Ui::Url *ui;
 };
 
 #endif // URL_H

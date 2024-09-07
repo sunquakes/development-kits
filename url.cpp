@@ -7,19 +7,19 @@ QString urlEncode(const QString &url) {
     return QString::fromUtf8(QUrl::toPercentEncoding(url, QByteArray(), QByteArray("/")));
 }
 
-url::url(QWidget *parent)
+Url::Url(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::url)
+    , ui(new Ui::Url)
 {
     ui->setupUi(this);
 }
 
-url::~url()
+Url::~Url()
 {
     delete ui;
 }
 
-void url::on_encodeButton_clicked()
+void Url::on_encodeButton_clicked()
 {
     QString text = ui->textEdit->toPlainText();
     if (!text.isEmpty()) {
@@ -28,7 +28,7 @@ void url::on_encodeButton_clicked()
 }
 
 
-void url::on_decodeButton_clicked()
+void Url::on_decodeButton_clicked()
 {
     QString text = ui->textEdit->toPlainText();
     if (!text.isEmpty()) {
@@ -40,7 +40,7 @@ void url::on_decodeButton_clicked()
 }
 
 
-void url::on_clearButton_clicked()
+void Url::on_clearButton_clicked()
 {
     QString text = ui->textEdit->toPlainText();
     if (!text.isEmpty()) {

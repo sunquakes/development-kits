@@ -5,16 +5,16 @@
 #include <qabstractbutton.h>
 
 namespace Ui {
-class md5;
+class Md5;
 }
 
-class md5 : public QWidget
+class Md5 : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit md5(QWidget *parent = nullptr);
-    ~md5();
+    explicit Md5(QWidget *parent = nullptr);
+    ~Md5();
 private slots:
     void on_button_accepted();
 
@@ -35,7 +35,7 @@ private slots:
     void on_lower16_copy_clicked();
 
 private:
-    Ui::md5 *ui;
+    Ui::Md5 *ui;
 };
 
 #endif // MD5_H

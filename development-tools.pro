@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     base64.cpp \
+    json.cpp \
     main.cpp \
     mainwindow.cpp \
     md5.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 
 HEADERS += \
     base64.h \
+    json.h \
     mainwindow.h \
     md5.h \
     timestamp.h \
@@ -25,6 +27,7 @@ HEADERS += \
 
 FORMS += \
     base64.ui \
+    json.ui \
     mainwindow.ui \
     md5.ui \
     timestamp.ui \

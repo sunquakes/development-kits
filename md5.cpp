@@ -6,27 +6,27 @@
 #include <QTimer>
 #include <qtimer.h>
 
-md5::md5(QWidget *parent)
+Md5::Md5(QWidget *parent)
     : QWidget(parent)
-    , ui(new Ui::md5)
+    , ui(new Ui::Md5)
 {
     ui->setupUi(this);
 }
 
-md5::~md5()
+Md5::~Md5()
 {
     delete ui;
 }
 
-void md5::on_button_accepted()
+void Md5::on_button_accepted()
 {
 }
 
-void md5::on_submit_button_clicked(QAbstractButton *button)
+void Md5::on_submit_button_clicked(QAbstractButton *button)
 {
 }
 
-void md5::on_submit_button_accepted()
+void Md5::on_submit_button_accepted()
 {
     QString text = ui->source_text->toPlainText();
     if (!text.isEmpty()) {
@@ -41,7 +41,7 @@ void md5::on_submit_button_accepted()
 }
 
 
-void md5::on_submit_button_rejected()
+void Md5::on_submit_button_rejected()
 {
     ui->source_text->setText("");
     ui->upper32_text->setText("");
@@ -51,7 +51,7 @@ void md5::on_submit_button_rejected()
 }
 
 
-void md5::on_upper32_copy_clicked()
+void Md5::on_upper32_copy_clicked()
 {
     QString text = ui->upper32_text->text();
     if (!text.isEmpty()) {
@@ -61,7 +61,7 @@ void md5::on_upper32_copy_clicked()
     }
 }
 
-void md5::alert(QString text)
+void Md5::alert(QString text)
 {
     QMessageBox *mbox = new QMessageBox;
     mbox->setWindowTitle(text);
@@ -71,7 +71,7 @@ void md5::alert(QString text)
 }
 
 
-void md5::on_lower32_copy_clicked()
+void Md5::on_lower32_copy_clicked()
 {
     QString text = ui->lower32_text->text();
     if (!text.isEmpty()) {
@@ -82,7 +82,7 @@ void md5::on_lower32_copy_clicked()
 }
 
 
-void md5::on_upper16_copy_clicked()
+void Md5::on_upper16_copy_clicked()
 {
     QString text = ui->upper16_text->text();
     if (!text.isEmpty()) {
@@ -93,7 +93,7 @@ void md5::on_upper16_copy_clicked()
 }
 
 
-void md5::on_lower16_copy_clicked()
+void Md5::on_lower16_copy_clicked()
 {
     QString text = ui->lower16_text->text();
     if (!text.isEmpty()) {
