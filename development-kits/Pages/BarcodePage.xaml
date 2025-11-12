@@ -1,0 +1,13 @@
+<Page x:Class="development_kits.Pages.BarcodePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="BarcodePage">
+    <Grid Margin="20">
+        <StackPanel>
+            <Button Content="Back" Click="Back_Click" Width="80" />
+            <TextBlock Text="Barcode (placeholder)" FontSize="18" Margin="0,10" />
+            <TextBox x:Name="InputText" Height="40" />
+            <Button Content="Generate (not implemented)" IsEnabled="False" Margin="0,10" />
+        </StackPanel>
+    </Grid>
+</Page>

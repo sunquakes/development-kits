@@ -1,0 +1,14 @@
+<Page x:Class="development_kits.Pages.Base64ImagePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Base64ImagePage">
+    <Grid Margin="20">
+        <StackPanel>
+            <Button Content="Back" Click="Back_Click" Width="80" />
+            <TextBlock Text="Base64 -> Image" FontSize="18" Margin="0,10" />
+            <TextBox x:Name="InputText" Height="100" TextWrapping="Wrap" AcceptsReturn="True" />
+            <Button Content="Decode" Click="Decode_Click" Margin="0,10" />
+            <Image x:Name="ResultImage" Height="200" />
+        </StackPanel>
+    </Grid>
+</Page>
