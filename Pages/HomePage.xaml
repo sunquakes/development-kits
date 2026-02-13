@@ -1,0 +1,16 @@
+<Page x:Class="development_kits.Pages.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:development_kits.Pages"
+      Title="HomePage">
+    <Grid Margin="20">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+            <TextBlock Text="Toolbox" FontSize="24" HorizontalAlignment="Center" />
+            <Button x:Name="BtnMd5" Content="MD5" Click="BtnMd5_Click" Margin="0,5" />
+            <Button x:Name="BtnBarcode" Content="Barcode" Click="BtnBarcode_Click" Margin="0,5" />
+            <Button x:Name="BtnQr" Content="QR Code" Click="BtnQr_Click" Margin="0,5" />
+            <Button x:Name="BtnBase64ToImage" Content="Base64 -> Image" Click="BtnBase64ToImage_Click" Margin="0,5" />
+            <Button x:Name="BtnJsonFormat" Content="JSON Format" Click="BtnJsonFormat_Click" Margin="0,5" />
+        </StackPanel>
+    </Grid>
+</Page>
