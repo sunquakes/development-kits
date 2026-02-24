@@ -3,12 +3,84 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Md5Page">
     <Grid Margin="20">
-        <StackPanel>
-            <Button Content="Back" Click="Back_Click" Width="80" />
-            <TextBlock Text="MD5 Tool" FontSize="18" Margin="0,10" />
-            <TextBox x:Name="InputText" Height="80" TextWrapping="Wrap" />
-            <Button Content="Compute MD5" Click="Compute_Click" Margin="0,10" />
-            <TextBox x:Name="OutputText" Height="60" IsReadOnly="True" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- 左右列固定宽度 -->
+            <ColumnDefinition Width="300" />
+            <!-- 两侧用于保证中间按钮居中对齐的等宽星号列 -->
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="360" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Back button 单独一行，底部留一点距离 -->
+        <Button Content="Back" Click="Back_Click" Width="80" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="0,0,0,12" />
+
+        <!-- Left: input (固定列宽，左对齐，内部元素宽度100%) -->
+        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="300">
+            <TextBox x:Name="InputText" Height="260" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" />
+        </StackPanel>
+
+        <!-- Middle: compute button (居中对齐) -->
+        <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0">
+            <Button Content="转换" Click="Compute_Click" Width="60" Height="30" HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <!-- Right: 4 read-only outputs with labels and copy buttons (固定列宽，右对齐，内部元素宽度100%) -->
+        <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right" Width="360">
+            <TextBlock Text="结果" FontWeight="Bold" Margin="0,0,0,8" />
+
+            <StackPanel Orientation="Vertical" Margin="0,6">
+                <TextBlock Text="32位（小写）" FontSize="12" />
+                <Grid Margin="0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Out32Lower" IsReadOnly="True" Grid.Column="0" />
+                    <Button Content="复制" Click="Copy32Lower_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="0,6">
+                <TextBlock Text="32位（大写）" FontSize="12" />
+                <Grid Margin="0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Out32Upper" IsReadOnly="True" Grid.Column="0" />
+                    <Button Content="复制" Click="Copy32Upper_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="0,6">
+                <TextBlock Text="16位（小写）" FontSize="12" />
+                <Grid Margin="0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Out16Lower" IsReadOnly="True" Grid.Column="0" />
+                    <Button Content="复制" Click="Copy16Lower_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Margin="0,6">
+                <TextBlock Text="16位（大写）" FontSize="12" />
+                <Grid Margin="0,4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="Out16Upper" IsReadOnly="True" Grid.Column="0" />
+                    <Button Content="复制" Click="Copy16Upper_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

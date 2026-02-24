@@ -4,11 +4,22 @@
       Title="JsonFormatPage">
     <Grid Margin="20">
         <StackPanel>
-            <Button Content="Back" Click="Back_Click" Width="80" />
+            <Button Content="Back" Click="Back_Click" Width="80" HorizontalAlignment="Left" Margin="0,0,0,8" />
             <TextBlock Text="JSON Format" FontSize="18" Margin="0,10" />
             <TextBox x:Name="InputText" Height="150" TextWrapping="Wrap" AcceptsReturn="True" />
-            <Button Content="Format" Click="Format_Click" Margin="0,10" />
-            <TextBox x:Name="OutputText" Height="150" IsReadOnly="True" TextWrapping="Wrap" AcceptsReturn="True" />
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <Button Content="Format" Click="Format_Click" Width="80" />
+                <Button Content="Expand All" Click="ExpandAll_Click" Margin="8,0,0,0" Width="100" />
+                <Button Content="Collapse All" Click="CollapseAll_Click" Margin="8,0,0,0" Width="100" />
+                <Button Content="复制格式化文本" Click="CopyFormatted_Click" Margin="8,0,0,0" Width="120" />
+            </StackPanel>
+
+            <!-- 可折叠的格式化 JSON 显示（替代原来的文本输出与下方面板） -->
+            <Border BorderBrush="LightGray" BorderThickness="1" Padding="4" Height="440">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="JsonOutputPanel" />
+                </ScrollViewer>
+            </Border>
         </StackPanel>
     </Grid>
 </Page>

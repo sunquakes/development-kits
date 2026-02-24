@@ -4,10 +4,16 @@
       Title="Base64ImagePage">
     <Grid Margin="20">
         <StackPanel>
-            <Button Content="Back" Click="Back_Click" Width="80" />
+            <Button Content="Back" Click="Back_Click" Width="80" HorizontalAlignment="Left" Margin="0,0,0,8" />
             <TextBlock Text="Base64 -> Image" FontSize="18" Margin="0,10" />
             <TextBox x:Name="InputText" Height="100" TextWrapping="Wrap" AcceptsReturn="True" />
             <Button Content="Decode" Click="Decode_Click" Margin="0,10" />
+            <StackPanel Orientation="Horizontal" Margin="0,8">
+                <TextBlock Text="图片尺寸：" FontWeight="Bold" />
+                <TextBlock x:Name="ImageDimensionsText" Text="-" />
+                <TextBlock Text="    大小：" FontWeight="Bold" Margin="12,0,0,0" />
+                <TextBlock x:Name="ImageSizeText" Text="-" />
+            </StackPanel>
             <Image x:Name="ResultImage" Height="200" />
         </StackPanel>
     </Grid>

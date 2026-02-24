@@ -4,13 +4,23 @@
       xmlns:local="clr-namespace:development_kits.Pages"
       Title="HomePage">
     <Grid Margin="20">
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
-            <TextBlock Text="Toolbox" FontSize="24" HorizontalAlignment="Center" />
-            <Button x:Name="BtnMd5" Content="MD5" Click="BtnMd5_Click" Margin="0,5" />
-            <Button x:Name="BtnBarcode" Content="Barcode" Click="BtnBarcode_Click" Margin="0,5" />
-            <Button x:Name="BtnQr" Content="QR Code" Click="BtnQr_Click" Margin="0,5" />
-            <Button x:Name="BtnBase64ToImage" Content="Base64 -> Image" Click="BtnBase64ToImage_Click" Margin="0,5" />
-            <Button x:Name="BtnJsonFormat" Content="JSON Format" Click="BtnJsonFormat_Click" Margin="0,5" />
-        </StackPanel>
+        <!-- Title at top, buttons vertically centered in remaining space -->
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,8,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Toolbox" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,40,0,8" />
+
+            <UniformGrid Grid.Row="1" Rows="2" Columns="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+                <Button x:Name="BtnMd5" Content="MD5" Click="BtnMd5_Click" Width="160" Height="88" Margin="8" Background="#FFEEEEEE" BorderThickness="0" FontSize="16" FontWeight="SemiBold" Cursor="Hand" />
+                <Button x:Name="BtnBarcode" Content="Barcode" Click="BtnBarcode_Click" Width="160" Height="88" Margin="8" Background="#FFEEEEEE" BorderThickness="0" FontSize="16" FontWeight="SemiBold" Cursor="Hand" />
+                <Button x:Name="BtnQr" Content="QR Code" Click="BtnQr_Click" Width="160" Height="88" Margin="8" Background="#FFEEEEEE" BorderThickness="0" FontSize="16" FontWeight="SemiBold" Cursor="Hand" />
+                <Button x:Name="BtnBase64ToImage" Content="Base64 -> Image" Click="BtnBase64ToImage_Click" Width="160" Height="88" Margin="8" Background="#FFEEEEEE" BorderThickness="0" FontSize="16" FontWeight="SemiBold" Cursor="Hand" />
+                <Button x:Name="BtnImageToBase64" Content="Image -> Base64" Click="BtnImageToBase64_Click" Width="160" Height="88" Margin="8" Background="#FFEEEEEE" BorderThickness="0" FontSize="16" FontWeight="SemiBold" Cursor="Hand" />
+                <Button x:Name="BtnJsonFormat" Content="JSON Format" Click="BtnJsonFormat_Click" Width="160" Height="88" Margin="8" Background="#FFEEEEEE" BorderThickness="0" FontSize="16" FontWeight="SemiBold" Cursor="Hand" />
+            </UniformGrid>
+        </Grid>
     </Grid>
 </Page>

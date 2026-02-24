@@ -34,5 +34,10 @@ namespace development_kits.Pages
         {
             NavigationService?.Navigate(new JsonFormatPage());
         }
+
+        private void BtnImageToBase64_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new ImageToBase64Page());
+        }
     }
 }
