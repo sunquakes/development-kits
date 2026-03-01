@@ -1,29 +1,42 @@
 <Page x:Class="development_kits.Pages.ImageToBase64Page"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:resources="clr-namespace:development_kits.Resources"
       Title="ImageToBase64Page">
     <Grid Margin="20">
         <StackPanel>
-            <Button Content="Back" Click="Back_Click" Width="80" HorizontalAlignment="Left" Margin="0,0,0,8" />
-            <TextBlock Text="Image -> Base64" FontSize="18" Margin="0,10" />
+            <Button Click="Back_Click" HorizontalAlignment="Left" Margin="0,0,0,8" Width="40" Height="40" ToolTip="{x:Static resources:Strings.Back}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#4A4A4A" CornerRadius="20" Width="40" Height="40" SnapsToDevicePixels="True">
+                            <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf060;" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFF" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <TextBlock Text="{x:Static resources:Strings.PageImageToBase64}" FontSize="18" Margin="0,10" />
 
             <StackPanel Orientation="Horizontal" Margin="0,6">
-                <Button Content="选择图片" Click="SelectImage_Click" Width="100" />
-                <CheckBox x:Name="IncludeDataUriCheck" Content="包含 data URI 前缀 (data:image/...)" Margin="12,0,0,0" VerticalAlignment="Center" />
+                <Button Click="SelectImage_Click" Width="100" Height="32" ToolTip="{x:Static resources:Strings.SelectImage}">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf03e;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                </Button>
+                <CheckBox x:Name="IncludeDataUriCheck" Content="{x:Static resources:Strings.IncludeDataUri}" Margin="12,0,0,0" VerticalAlignment="Center" />
             </StackPanel>
 
             <Image x:Name="ResultImage" Height="200" Margin="0,8" />
 
             <StackPanel Orientation="Horizontal" Margin="0,8">
-                <TextBlock Text="图片尺寸：" FontWeight="Bold" />
+                <TextBlock Text="{x:Static resources:Strings.ImageSize}" FontWeight="Bold" />
                 <TextBlock x:Name="ImageDimensionsText" Text="-" />
-                <TextBlock Text="    大小：" FontWeight="Bold" Margin="12,0,0,0" />
+                <TextBlock Text="{x:Static resources:Strings.Size}" FontWeight="Bold" Margin="12,0,0,0" />
                 <TextBlock x:Name="ImageSizeText" Text="-" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,6">
-                <TextBlock Text="Base64:" FontWeight="Bold" VerticalAlignment="Center" />
-                <Button Content="复制" Click="CopyBase64_Click" Margin="8,0,0,0" Width="60" />
+                <TextBlock Text="{x:Static resources:Strings.Base64}" FontWeight="Bold" VerticalAlignment="Center" />
+                <Button Click="CopyBase64_Click" Margin="8,0,0,0" Width="60" Height="32" ToolTip="{x:Static resources:Strings.Copy}">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c5;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                </Button>
             </StackPanel>
 
             <TextBox x:Name="Base64Text" Height="180" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" />

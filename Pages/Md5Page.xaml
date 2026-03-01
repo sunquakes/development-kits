@@ -1,6 +1,7 @@
 <Page x:Class="development_kits.Pages.Md5Page"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:resources="clr-namespace:development_kits.Resources"
       Title="Md5Page">
     <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -18,7 +19,17 @@
         </Grid.ColumnDefinitions>
 
         <!-- Back button 单独一行，底部留一点距离 -->
-        <Button Content="Back" Click="Back_Click" Width="80" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="0,0,0,12" />
+        <Button Click="Back_Click" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="0,0,0,12" Width="40" Height="40" ToolTip="{x:Static resources:Strings.Back}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="#4A4A4A" CornerRadius="20" Width="40" Height="40" SnapsToDevicePixels="True">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf060;" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFF" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Text="{x:Static resources:Strings.PageMD5}" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,8" />
 
         <!-- Left: input (固定列宽，左对齐，内部元素宽度100%) -->
         <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="300">
@@ -27,58 +38,68 @@
 
         <!-- Middle: compute button (居中对齐) -->
         <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0">
-            <Button Content="转换" Click="Compute_Click" Width="60" Height="30" HorizontalAlignment="Center" />
+            <Button Click="Compute_Click" Width="60" Height="32" HorizontalAlignment="Center" ToolTip="{x:Static resources:Strings.Convert}">
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf15b;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+            </Button>
         </StackPanel>
 
         <!-- Right: 4 read-only outputs with labels and copy buttons (固定列宽，右对齐，内部元素宽度100%) -->
         <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right" Width="360">
-            <TextBlock Text="结果" FontWeight="Bold" Margin="0,0,0,8" />
+            <TextBlock Text="{x:Static resources:Strings.Result}" FontWeight="Bold" Margin="0,0,0,8" />
 
             <StackPanel Orientation="Vertical" Margin="0,6">
-                <TextBlock Text="32位（小写）" FontSize="12" />
+                <TextBlock Text="{x:Static resources:Strings.Lower32}" FontSize="12" />
                 <Grid Margin="0,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="Out32Lower" IsReadOnly="True" Grid.Column="0" />
-                    <Button Content="复制" Click="Copy32Lower_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                    <Button Click="Copy32Lower_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" Height="32" ToolTip="{x:Static resources:Strings.Copy}">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c5;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                    </Button>
                 </Grid>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Margin="0,6">
-                <TextBlock Text="32位（大写）" FontSize="12" />
+                <TextBlock Text="{x:Static resources:Strings.Upper32}" FontSize="12" />
                 <Grid Margin="0,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="Out32Upper" IsReadOnly="True" Grid.Column="0" />
-                    <Button Content="复制" Click="Copy32Upper_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                    <Button Click="Copy32Upper_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" Height="32" ToolTip="{x:Static resources:Strings.Copy}">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c5;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                    </Button>
                 </Grid>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Margin="0,6">
-                <TextBlock Text="16位（小写）" FontSize="12" />
+                <TextBlock Text="{x:Static resources:Strings.Lower16}" FontSize="12" />
                 <Grid Margin="0,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="Out16Lower" IsReadOnly="True" Grid.Column="0" />
-                    <Button Content="复制" Click="Copy16Lower_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                    <Button Click="Copy16Lower_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" Height="32" ToolTip="{x:Static resources:Strings.Copy}">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c5;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                    </Button>
                 </Grid>
             </StackPanel>
 
             <StackPanel Orientation="Vertical" Margin="0,6">
-                <TextBlock Text="16位（大写）" FontSize="12" />
+                <TextBlock Text="{x:Static resources:Strings.Upper16}" FontSize="12" />
                 <Grid Margin="0,4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="Out16Upper" IsReadOnly="True" Grid.Column="0" />
-                    <Button Content="复制" Click="Copy16Upper_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" />
+                    <Button Click="Copy16Upper_Click" Grid.Column="1" Margin="8,0,0,0" Width="60" Height="32" ToolTip="{x:Static resources:Strings.Copy}">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c5;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                    </Button>
                 </Grid>
             </StackPanel>
         </StackPanel>

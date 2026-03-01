@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:development_kits"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/MaterialStylesDark.xaml" />
+                <ResourceDictionary Source="/Themes/CardStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <FontFamily x:Key="FontAwesomeSolid">pack://application:,,,/Fonts/#Font Awesome 6 Free Solid</FontFamily>
+            <FontFamily x:Key="FontAwesomeRegular">pack://application:,,,/Fonts/#Font Awesome 6 Free Regular</FontFamily>
+            <FontFamily x:Key="FontAwesomeBrands">pack://application:,,,/Fonts/#Font Awesome 6 Brands</FontFamily>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

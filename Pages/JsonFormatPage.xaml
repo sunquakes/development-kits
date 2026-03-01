@@ -1,25 +1,48 @@
 <Page x:Class="development_kits.Pages.JsonFormatPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:resources="clr-namespace:development_kits.Resources"
       Title="JsonFormatPage">
     <Grid Margin="20">
-        <StackPanel>
-            <Button Content="Back" Click="Back_Click" Width="80" HorizontalAlignment="Left" Margin="0,0,0,8" />
-            <TextBlock Text="JSON Format" FontSize="18" Margin="0,10" />
-            <TextBox x:Name="InputText" Height="150" TextWrapping="Wrap" AcceptsReturn="True" />
-            <StackPanel Orientation="Horizontal" Margin="0,10">
-                <Button Content="Format" Click="Format_Click" Width="80" />
-                <Button Content="Expand All" Click="ExpandAll_Click" Margin="8,0,0,0" Width="100" />
-                <Button Content="Collapse All" Click="CollapseAll_Click" Margin="8,0,0,0" Width="100" />
-                <Button Content="复制格式化文本" Click="CopyFormatted_Click" Margin="8,0,0,0" Width="120" />
-            </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <!-- 可折叠的格式化 JSON 显示（替代原来的文本输出与下方面板） -->
-            <Border BorderBrush="LightGray" BorderThickness="1" Padding="4" Height="440">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel x:Name="JsonOutputPanel" />
-                </ScrollViewer>
-            </Border>
+        <Button Grid.Row="0" Click="Back_Click" HorizontalAlignment="Left" Margin="0,0,0,8" Width="40" Height="40" ToolTip="{x:Static resources:Strings.Back}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="#4A4A4A" CornerRadius="20" Width="40" Height="40" SnapsToDevicePixels="True">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf060;" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFF" />
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock Grid.Row="1" Text="{x:Static resources:Strings.PageJSONFormat}" FontSize="18" Margin="0,10" />
+        <TextBox Grid.Row="2" x:Name="InputText" Height="150" TextWrapping="Wrap" AcceptsReturn="True" />
+        <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10">
+            <Button Click="Format_Click" Width="80" Height="32" ToolTip="{x:Static resources:Strings.Format}">
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf15b;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+            </Button>
+            <Button Click="ExpandAll_Click" Margin="8,0,0,0" Width="100" Height="32" ToolTip="{x:Static resources:Strings.ExpandAll}">
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf078;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+            </Button>
+            <Button Click="CollapseAll_Click" Margin="8,0,0,0" Width="100" Height="32" ToolTip="{x:Static resources:Strings.CollapseAll}">
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf077;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+            </Button>
+            <Button Click="CopyFormatted_Click" Margin="8,0,0,0" Width="120" Height="32" ToolTip="{x:Static resources:Strings.CopyFormatted}">
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c5;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+            </Button>
         </StackPanel>
+
+        <!-- 可折叠的格式化 JSON 显示（替代原来的文本输出与下方面板） -->
+        <Border Grid.Row="4" BorderBrush="LightGray" BorderThickness="1" Padding="4">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel x:Name="JsonOutputPanel" />
+            </ScrollViewer>
+        </Border>
     </Grid>
 </Page>

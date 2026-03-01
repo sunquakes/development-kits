@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using development_kits.Helpers;
 
 namespace development_kits.Pages
 {
@@ -62,14 +63,7 @@ namespace development_kits.Pages
 
         private void CopyBase64_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Clipboard.SetText(Base64Text.Text ?? string.Empty);
-            }
-            catch
-            {
-                // ignore
-            }
+            ClipboardHelper.CopyWithFeedback(Base64Text.Text, (Button)sender);
         }
 
         private static string FormatBytes(long bytes)

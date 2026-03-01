@@ -2,12 +2,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.Json;
+using development_kits.Helpers;
+using System.Collections.Generic;
+using System.Windows.Controls.Primitives;
 
 namespace development_kits.Pages
 {
     public partial class JsonFormatPage : Page
     {
         private string _lastFormattedJson = string.Empty;
+        private readonly List<Expander> _allExpanders = new List<Expander>();
 
         public JsonFormatPage()
         {
@@ -21,25 +25,27 @@ namespace development_kits.Pages
 
         private void Format_Click(object sender, RoutedEventArgs e)
         {
+            var json = InputText.Text ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(json))
+            {
+                MessageBox.Show("è¯·è¾“å…¥JSONå­—ç¬¦ä¸²", "æç¤º", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            _allExpanders.Clear();
+            JsonOutputPanel.Children.Clear();
+
             try
             {
-                var json = InputText.Text ?? string.Empty;
-
-                // Çå¿ÕÖ®Ç°Éú³ÉµÄ¿ÉÊÓ»¯ÄÚÈÝ
-                JsonOutputPanel.Children.Clear();
-
                 using var doc = JsonDocument.Parse(json);
                 var root = doc.RootElement;
 
-                // Éú³É¸ñÊ½»¯ºóµÄ JSON ÎÄ±¾£¨±£Áô´óÀ¨ºÅµÈ·ûºÅ£©£¬µ«Õ¹Ê¾Îª¿ÉÕÛµþÊÓÍ¼
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 var formatted = JsonSerializer.Serialize(root, options);
                 _lastFormattedJson = formatted;
 
-                // ¸ù¾Ý¸ù½ÚµãÀàÐÍÉú³É¿ÉÕÛµþµÄ¿ÉÊÓ»¯ÄÚÈÝ£¨Expander + StackPanel£©
                 if (root.ValueKind == JsonValueKind.Object)
                 {
-                    // ×îÍâ²ã±£Áô´óÀ¨ºÅ
                     var outer = new StackPanel();
                     outer.Children.Add(new TextBlock
                     {
@@ -60,7 +66,6 @@ namespace development_kits.Pages
                 }
                 else if (root.ValueKind == JsonValueKind.Array)
                 {
-                    // ×îÍâ²ã±£ÁôÖÐÀ¨ºÅ
                     var outer = new StackPanel();
                     outer.Children.Add(new TextBlock
                     {
@@ -69,7 +74,6 @@ namespace development_kits.Pages
                     });
                     foreach (var el in root.EnumerateArray())
                     {
-                        // Êý×éÔªËØ²»ÏÔÊ¾ [0] Ç°×º
                         outer.Children.Add(CreateVisualForElement(string.Empty, el));
                     }
                     outer.Children.Add(new TextBlock
@@ -87,7 +91,7 @@ namespace development_kits.Pages
             }
             catch (JsonException ex)
             {
-                MessageBox.Show("JSON ½âÎöÊ§°Ü: " + ex.Message, "´íÎó", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("JSON æ ¼å¼åŒ–å¤±è´¥: " + ex.Message, "é”™è¯¯", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private UIElement CreateVisualForElement(string name, JsonElement el)
@@ -96,7 +100,15 @@ namespace development_kits.Pages
             {
                 case JsonValueKind.Object:
                     {
-                        // Show opening brace in header like: name: {
+                        var arrowIcon = new TextBlock
+                        {
+                            Text = "â–¼",
+                            FontFamily = new System.Windows.Media.FontFamily("Segoe UI Symbol"),
+                            FontSize = 10,
+                            Margin = new Thickness(0, 0, 4, 0),
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+
                         var headerText = new TextBlock
                         {
                             Text = string.IsNullOrEmpty(name) ? "{" : $"{name}: {{",
@@ -104,14 +116,28 @@ namespace development_kits.Pages
                             VerticalAlignment = VerticalAlignment.Center
                         };
 
-                        var exp = new Expander { Header = headerText, IsExpanded = true };
+                        var headerPanel = new StackPanel
+                        {
+                            Orientation = Orientation.Horizontal,
+                            Children = { arrowIcon, headerText }
+                        };
+
+                        var exp = new Expander { Header = headerPanel, IsExpanded = true };
+                        
+                        exp.MouseDoubleClick += (s, e) =>
+                        {
+                            if (e.ClickCount == 2)
+                            {
+                                exp.IsExpanded = !exp.IsExpanded;
+                            }
+                        };
+                        
                         var panel = new StackPanel { Margin = new Thickness(12, 4, 0, 4) };
                         foreach (var p in el.EnumerateObject())
                         {
                             panel.Children.Add(CreateVisualForElement(p.Name, p.Value));
                         }
 
-                        // closing brace
                         var closing = new TextBlock
                         {
                             Text = "}",
@@ -121,22 +147,53 @@ namespace development_kits.Pages
                         panel.Children.Add(closing);
 
                         exp.Content = panel;
+                        
+                        _allExpanders.Add(exp);
+                        
+                        exp.Loaded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
+                        exp.Expanded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
+                        exp.Collapsed += (s, args) => UpdateArrowIcon(exp, arrowIcon);
+                        UpdateArrowIcon(exp, arrowIcon);
+                        
                         return exp;
                     }
                 case JsonValueKind.Array:
                     {
-                        // Header: if name provided, show "name: [", otherwise just "["
+                        var arrowIcon = new TextBlock
+                        {
+                            Text = "â–¼",
+                            FontFamily = new System.Windows.Media.FontFamily("Segoe UI Symbol"),
+                            FontSize = 10,
+                            Margin = new Thickness(0, 0, 4, 0),
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+
                         var headerText = new TextBlock
                         {
                             Text = string.IsNullOrEmpty(name) ? "[" : $"{name}: [",
                             FontFamily = new System.Windows.Media.FontFamily("Consolas"),
                             VerticalAlignment = VerticalAlignment.Center
                         };
-                        var exp = new Expander { Header = headerText, IsExpanded = true };
+
+                        var headerPanel = new StackPanel
+                        {
+                            Orientation = Orientation.Horizontal,
+                            Children = { arrowIcon, headerText }
+                        };
+
+                        var exp = new Expander { Header = headerPanel, IsExpanded = true };
+                        
+                        exp.MouseDoubleClick += (s, e) =>
+                        {
+                            if (e.ClickCount == 2)
+                            {
+                                exp.IsExpanded = !exp.IsExpanded;
+                            }
+                        };
+
                         var panel = new StackPanel { Margin = new Thickness(12, 4, 0, 4) };
                         foreach (var v in el.EnumerateArray())
                         {
-                            // array elements: do not show index prefixes
                             panel.Children.Add(CreateVisualForElement(string.Empty, v));
                         }
 
@@ -149,22 +206,41 @@ namespace development_kits.Pages
                         panel.Children.Add(closing);
 
                         exp.Content = panel;
+                        
+                        _allExpanders.Add(exp);
+                        
+                        exp.Loaded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
+                        exp.Expanded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
+                        exp.Collapsed += (s, args) => UpdateArrowIcon(exp, arrowIcon);
+                        UpdateArrowIcon(exp, arrowIcon);
+
                         return exp;
                     }
                 case JsonValueKind.String:
                     {
-                        // Use a read-only TextBox so the value can be selected and copied by the user
+                        var text = $"{name}: \"{el.GetString()}\"";
                         var tb = new TextBox
                         {
-                            Text = $"{name}: \"{el.GetString()}\"",
+                            Text = text,
                             IsReadOnly = true,
                             BorderThickness = new Thickness(0),
                             Background = System.Windows.Media.Brushes.Transparent,
                             TextWrapping = TextWrapping.Wrap,
-                            Margin = new Thickness(4,2,0,2)
+                            Margin = new Thickness(4,2,0,2),
+                            FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                            CaretBrush = System.Windows.Media.Brushes.Transparent,
+                            SelectionBrush = System.Windows.Media.Brushes.LightBlue,
+                            Focusable = true,
+                            Template = CreateNoUnderlineTemplate()
                         };
-                        // Ë«»÷Ê±£¬Èç¹û¹â±êÎ»ÓÚÒýºÅÄÚ£¬Ñ¡ÖÐÒýºÅÄÚÈ«²¿ÄÚÈÝ
-                        tb.PreviewMouseDoubleClick += TextBox_PreviewMouseDoubleClick;
+                        tb.PreviewMouseDoubleClick += (s, e) =>
+                        {
+                            if (e.ClickCount == 2)
+                            {
+                                tb.SelectAll();
+                            }
+                        };
+                        AddContextMenu(tb);
                         return tb;
                     }
                 case JsonValueKind.Number:
@@ -173,118 +249,118 @@ namespace development_kits.Pages
                 case JsonValueKind.Null:
                     {
                         var val = el.ValueKind == JsonValueKind.Null ? "null" : el.ToString();
+                        var text = $"{name}: {val}";
                         var tb = new TextBox
                         {
-                            Text = $"{name}: {val}",
+                            Text = text,
                             IsReadOnly = true,
                             BorderThickness = new Thickness(0),
                             Background = System.Windows.Media.Brushes.Transparent,
-                            Margin = new Thickness(4,2,0,2)
+                            Margin = new Thickness(4,2,0,2),
+                            FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                            CaretBrush = System.Windows.Media.Brushes.Transparent,
+                            SelectionBrush = System.Windows.Media.Brushes.LightBlue,
+                            Focusable = true,
+                            Template = CreateNoUnderlineTemplate()
                         };
+                        tb.PreviewMouseDoubleClick += (s, e) =>
+                        {
+                            if (e.ClickCount == 2)
+                            {
+                                tb.SelectAll();
+                            }
+                        };
+                        AddContextMenu(tb);
                         return tb;
                     }
                 default:
                     {
                         var val = el.ToString();
+                        var text = $"{name}: {val}";
                         var tb = new TextBox
                         {
-                            Text = $"{name}: {val}",
+                            Text = text,
                             IsReadOnly = true,
                             BorderThickness = new Thickness(0),
                             Background = System.Windows.Media.Brushes.Transparent,
-                            Margin = new Thickness(4,2,0,2)
+                            Margin = new Thickness(4,2,0,2),
+                            FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                            CaretBrush = System.Windows.Media.Brushes.Transparent,
+                            SelectionBrush = System.Windows.Media.Brushes.LightBlue,
+                            Focusable = true,
+                            Template = CreateNoUnderlineTemplate()
                         };
+                        tb.PreviewMouseDoubleClick += (s, e) =>
+                        {
+                            if (e.ClickCount == 2)
+                            {
+                                tb.SelectAll();
+                            }
+                        };
+                        AddContextMenu(tb);
                         return tb;
                     }
             }
         }
 
-        // Copy helper removed: values are selectable so user can copy by selection.
+        private static void UpdateArrowIcon(Expander exp, TextBlock arrowIcon)
+        {
+            arrowIcon.Text = exp.IsExpanded ? "â–¼" : "â–¶";
+        }
+
+        private static ControlTemplate CreateNoUnderlineTemplate()
+        {
+            var template = new ControlTemplate(typeof(TextBox));
+            var factory = new FrameworkElementFactory(typeof(ScrollViewer));
+            factory.Name = "PART_ContentHost";
+            template.VisualTree = factory;
+            template.Seal();
+            return template;
+        }
+
+        private void AddContextMenu(TextBox tb)
+        {
+            var contextMenu = new ContextMenu();
+            var copyItem = new MenuItem { Header = "å¤åˆ¶" };
+            copyItem.Click += (s, e) => ClipboardHelper.CopyWithFeedback(tb.Text, null);
+            contextMenu.Items.Add(copyItem);
+            tb.ContextMenu = contextMenu;
+        }
 
         private void ExpandAll_Click(object sender, RoutedEventArgs e)
         {
-            SetExpanderStateInPanel(JsonOutputPanel, true);
+            ExpandOrCollapseRecursive(JsonOutputPanel, true);
+            JsonOutputPanel.UpdateLayout();
         }
 
         private void CollapseAll_Click(object sender, RoutedEventArgs e)
         {
-            SetExpanderStateInPanel(JsonOutputPanel, false);
+            ExpandOrCollapseRecursive(JsonOutputPanel, false);
+            JsonOutputPanel.UpdateLayout();
         }
 
-        private void SetExpanderStateInPanel(Panel panel, bool expanded)
+        private void ExpandOrCollapseRecursive(Panel panel, bool isExpanded)
         {
             foreach (var child in panel.Children)
             {
-                if (child is Expander ex)
+                if (child is Expander exp)
                 {
-                    SetExpanderRecursive(ex, expanded);
+                    exp.IsExpanded = isExpanded;
+                    if (exp.Content is Panel innerPanel)
+                    {
+                        ExpandOrCollapseRecursive(innerPanel, isExpanded);
+                    }
                 }
-                else if (child is Panel p)
+                else if (child is Panel childPanel)
                 {
-                    SetExpanderStateInPanel(p, expanded);
-                }
-            }
-        }
-
-        private void SetExpanderRecursive(Expander exp, bool expanded)
-        {
-            exp.IsExpanded = expanded;
-            if (exp.Content is Panel p)
-            {
-                foreach (var ch in p.Children)
-                {
-                    if (ch is Expander ce) SetExpanderRecursive(ce, expanded);
+                    ExpandOrCollapseRecursive(childPanel, isExpanded);
                 }
             }
         }
 
         private void CopyFormatted_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(_lastFormattedJson))
-                {
-                    MessageBox.Show("µ±Ç°Ã»ÓÐ¸ñÊ½»¯µÄ JSON ¿É¸´ÖÆ¡£", "ÐÅÏ¢", MessageBoxButton.OK, MessageBoxImage.Information);
-                    return;
-                }
-                Clipboard.SetText(_lastFormattedJson);
-            }
-            catch
-            {
-                // ignore clipboard errors
-            }
-        }
-
-        private void TextBox_PreviewMouseDoubleClick(object? sender, MouseButtonEventArgs e)
-        {
-            if (sender is not TextBox tb) return;
-
-            // »ñÈ¡Êó±êÔÚÎÄ±¾¿òÖÐµÄ×Ö·ûË÷Òý
-            var pt = e.GetPosition(tb);
-            int charIndex = tb.GetCharacterIndexFromPoint(pt, true);
-            if (charIndex < 0) return;
-
-            var text = tb.Text ?? string.Empty;
-
-            // ²éÕÒ×ó²à×î½üµÄË«ÒýºÅ
-            int left = text.LastIndexOf('"', Math.Min(charIndex, text.Length - 1));
-            if (left < 0) return;
-            // ²éÕÒ¶ÔÓ¦ÓÒ²àË«ÒýºÅ
-            int right = text.IndexOf('"', left + 1);
-            if (right <= left)
-            {
-                // Èç¹ûÃ»ÓÐÔÚ×ó²àÖ®ºóÕÒµ½£¬ÒýºÅ¿ÉÄÜÔÚ charIndex Ö®ºó
-                right = text.IndexOf('"', charIndex);
-            }
-            if (right <= left) return;
-
-            int start = left + 1;
-            int len = right - start;
-            if (len > 0)
-            {
-                tb.Select(start, len);
-                e.Handled = true;
-            }
+            ClipboardHelper.CopyWithFeedback(_lastFormattedJson, (Button)sender);
         }
     }
 }

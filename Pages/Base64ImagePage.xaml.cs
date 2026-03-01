@@ -20,10 +20,16 @@ namespace development_kits.Pages
 
         private void Decode_Click(object sender, RoutedEventArgs e)
         {
+            var base64 = (InputText.Text ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(base64))
+            {
+                MessageBox.Show("è¯·è¾“å…¥Base64å­—ç¬¦ä¸²", "æç¤º", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
             try
             {
-                var base64 = (InputText.Text ?? string.Empty).Trim();
-                // Ö§³Ö data URI Ç°×º
+                // æ”¯æŒ data URI å‰ç¼€
                 var commaIndex = base64.IndexOf(',');
                 if (base64.StartsWith("data:", StringComparison.OrdinalIgnoreCase) && commaIndex >= 0)
                 {
@@ -42,17 +48,17 @@ namespace development_kits.Pages
 
                 ResultImage.Source = bmp;
 
-                // ÏÔÊ¾³ß´çºÍ×Ö½Ú´óÐ¡
+                // ï¿½ï¿½Ê¾ï¿½ß´ï¿½ï¿½ï¿½Ö½Ú´ï¿½Ð¡
                 ImageDimensionsText.Text = $"{bmp.PixelWidth} x {bmp.PixelHeight}";
                 ImageSizeText.Text = FormatBytes(bytes.Length);
             }
             catch (FormatException)
             {
-                MessageBox.Show("Base64 ½âÂëÊ§°Ü£ºÊäÈë²»ÊÇÓÐÐ§µÄ Base64 ×Ö·û´®¡£", "´íÎó", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Base64 ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ë²»ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ Base64 ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½ï¿½ï¿½", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("½âÂëÊ§°Ü: " + ex.Message, "´íÎó", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½: " + ex.Message, "ï¿½ï¿½ï¿½ï¿½", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
