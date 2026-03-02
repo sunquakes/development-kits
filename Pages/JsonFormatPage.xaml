@@ -25,7 +25,7 @@
         <TextBox Grid.Row="2" x:Name="InputText" Height="150" TextWrapping="Wrap" AcceptsReturn="True" />
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10">
             <Button Click="Format_Click" Width="80" Height="32" ToolTip="{x:Static resources:Strings.Format}">
-                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf15b;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf121;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
             </Button>
             <Button Click="ExpandAll_Click" Margin="8,0,0,0" Width="100" Height="32" ToolTip="{x:Static resources:Strings.ExpandAll}">
                 <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf078;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />

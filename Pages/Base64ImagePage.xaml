@@ -17,7 +17,7 @@
             <TextBlock Text="{x:Static resources:Strings.PageBase64ToImage}" FontSize="18" Margin="0,10" />
             <TextBox x:Name="InputText" Height="100" TextWrapping="Wrap" AcceptsReturn="True" />
             <Button Click="Decode_Click" Margin="0,10" Width="70" Height="32" ToolTip="{x:Static resources:Strings.Decode}">
-                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf15b;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf362;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
             </Button>
             <StackPanel Orientation="Horizontal" Margin="0,8">
                 <TextBlock Text="{x:Static resources:Strings.ImageSize}" FontWeight="Bold" />

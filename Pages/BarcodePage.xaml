@@ -29,7 +29,7 @@
                 <TextBlock Text="{x:Static resources:Strings.PageBarcode}" FontSize="18" Margin="10,0" VerticalAlignment="Center" />
                 <TextBox x:Name="InputText" Height="30" Width="300" Margin="10,0" VerticalAlignment="Center" VerticalContentAlignment="Center" />
                 <Button Click="Generate_Click" Width="100" Height="32" Margin="8,0" VerticalAlignment="Center" ToolTip="{x:Static resources:Strings.Generate}">
-                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf15b;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf02a;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
                 </Button>
                 <Button Click="ClearAll_Click" Width="100" Height="32" Margin="8,0" VerticalAlignment="Center" ToolTip="{x:Static resources:Strings.ClearAll}">
                     <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf2ed;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />

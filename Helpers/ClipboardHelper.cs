@@ -86,26 +86,42 @@ namespace development_kits.Helpers
             lock (_lock)
             {
                 var now = DateTime.Now;
-                if ((now - _lastCopyTime).TotalMilliseconds < 100)
+                if ((now - _lastCopyTime).TotalMilliseconds < 300)
                 {
                     return;
                 }
                 _lastCopyTime = now;
             }
 
-            try
+            bool success = false;
+            for (int i = 0; i < 3; i++)
             {
-                Clipboard.SetText(text);
+                try
+                {
+                    Clipboard.Clear();
+                    Clipboard.SetText(text);
+                    Clipboard.Flush();
+                    success = true;
+                    break;
+                }
+                catch
+                {
+                    Thread.Sleep(50);
+                }
+            }
+
+            if (success)
+            {
                 if (button != null)
                 {
                     ShowToast(Resources.Strings.CopySuccess, button, false);
                 }
             }
-            catch
+            else
             {
                 if (button != null)
                 {
-                    ShowToast(Resources.Strings.CopyEmpty, button, true);
+                    ShowToast("复制失败，请重试", button, true);
                 }
             }
         }

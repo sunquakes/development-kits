@@ -39,7 +39,7 @@
         <!-- Middle: compute button (居中对齐) -->
         <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0">
             <Button Click="Compute_Click" Width="60" Height="32" HorizontalAlignment="Center" ToolTip="{x:Static resources:Strings.Convert}">
-                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf15b;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf362;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
             </Button>
         </StackPanel>
 

@@ -97,11 +97,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Expander">
                     <StackPanel>
-                        <ToggleButton x:Name="HeaderSite" Content="{TemplateBinding Header}" FontWeight="Bold" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" />
+                        <ToggleButton x:Name="HeaderSite" Content="{TemplateBinding Header}" FontWeight="Bold" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Left" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
                         <ContentPresenter x:Name="ExpandSite" Visibility="Collapsed" ContentSource="Content" Margin="8,4,0,4" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
-                        <Trigger SourceName="HeaderSite" Property="IsChecked" Value="True">
+                        <Trigger Property="IsExpanded" Value="True">
                             <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>

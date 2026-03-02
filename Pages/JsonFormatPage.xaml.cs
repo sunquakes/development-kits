@@ -124,13 +124,17 @@ namespace development_kits.Pages
 
                         var exp = new Expander { Header = headerPanel, IsExpanded = true };
                         
-                        exp.MouseDoubleClick += (s, e) =>
+                        var layoutUpdated = false;
+                        exp.LayoutUpdated += (s, e) =>
                         {
-                            if (e.ClickCount == 2)
+                            if (!layoutUpdated)
                             {
-                                exp.IsExpanded = !exp.IsExpanded;
+                                layoutUpdated = true;
+                                UpdateArrowIcon(exp, arrowIcon);
                             }
                         };
+                        exp.Expanded += (s, e) => UpdateArrowIcon(exp, arrowIcon);
+                        exp.Collapsed += (s, e) => UpdateArrowIcon(exp, arrowIcon);
                         
                         var panel = new StackPanel { Margin = new Thickness(12, 4, 0, 4) };
                         foreach (var p in el.EnumerateObject())
@@ -149,11 +153,6 @@ namespace development_kits.Pages
                         exp.Content = panel;
                         
                         _allExpanders.Add(exp);
-                        
-                        exp.Loaded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
-                        exp.Expanded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
-                        exp.Collapsed += (s, args) => UpdateArrowIcon(exp, arrowIcon);
-                        UpdateArrowIcon(exp, arrowIcon);
                         
                         return exp;
                     }
@@ -183,13 +182,18 @@ namespace development_kits.Pages
 
                         var exp = new Expander { Header = headerPanel, IsExpanded = true };
                         
-                        exp.MouseDoubleClick += (s, e) =>
+                        var layoutUpdated = false;
+                        exp.LayoutUpdated += (s, e) =>
                         {
-                            if (e.ClickCount == 2)
+                            if (!layoutUpdated)
                             {
-                                exp.IsExpanded = !exp.IsExpanded;
+                                layoutUpdated = true;
+                                UpdateArrowIcon(exp, arrowIcon);
                             }
                         };
+                        exp.Expanded += (s, e) => UpdateArrowIcon(exp, arrowIcon);
+                        exp.Collapsed += (s, e) => UpdateArrowIcon(exp, arrowIcon);
+                        UpdateArrowIcon(exp, arrowIcon);
 
                         var panel = new StackPanel { Margin = new Thickness(12, 4, 0, 4) };
                         foreach (var v in el.EnumerateArray())
@@ -209,11 +213,6 @@ namespace development_kits.Pages
                         
                         _allExpanders.Add(exp);
                         
-                        exp.Loaded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
-                        exp.Expanded += (s, args) => UpdateArrowIcon(exp, arrowIcon);
-                        exp.Collapsed += (s, args) => UpdateArrowIcon(exp, arrowIcon);
-                        UpdateArrowIcon(exp, arrowIcon);
-
                         return exp;
                     }
                 case JsonValueKind.String:
@@ -233,11 +232,20 @@ namespace development_kits.Pages
                             Focusable = true,
                             Template = CreateNoUnderlineTemplate()
                         };
-                        tb.PreviewMouseDoubleClick += (s, e) =>
+                        tb.MouseDoubleClick += (s, e) =>
                         {
-                            if (e.ClickCount == 2)
+                            var colonIndex = text.IndexOf(':');
+                            if (colonIndex >= 0)
                             {
-                                tb.SelectAll();
+                                var firstQuote = text.IndexOf('"', colonIndex);
+                                if (firstQuote >= 0)
+                                {
+                                    var lastQuote = text.LastIndexOf('"');
+                                    if (lastQuote > firstQuote)
+                                    {
+                                        tb.Select(firstQuote + 1, lastQuote - firstQuote - 1);
+                                    }
+                                }
                             }
                         };
                         AddContextMenu(tb);
@@ -263,11 +271,20 @@ namespace development_kits.Pages
                             Focusable = true,
                             Template = CreateNoUnderlineTemplate()
                         };
-                        tb.PreviewMouseDoubleClick += (s, e) =>
+                        tb.MouseDoubleClick += (s, e) =>
                         {
-                            if (e.ClickCount == 2)
+                            var colonIndex = text.IndexOf(':');
+                            if (colonIndex >= 0)
                             {
-                                tb.SelectAll();
+                                var valueStart = colonIndex + 1;
+                                while (valueStart < text.Length && char.IsWhiteSpace(text[valueStart]))
+                                {
+                                    valueStart++;
+                                }
+                                if (valueStart < text.Length)
+                                {
+                                    tb.Select(valueStart, text.Length - valueStart);
+                                }
                             }
                         };
                         AddContextMenu(tb);
@@ -290,11 +307,20 @@ namespace development_kits.Pages
                             Focusable = true,
                             Template = CreateNoUnderlineTemplate()
                         };
-                        tb.PreviewMouseDoubleClick += (s, e) =>
+                        tb.MouseDoubleClick += (s, e) =>
                         {
-                            if (e.ClickCount == 2)
+                            var colonIndex = text.IndexOf(':');
+                            if (colonIndex >= 0)
                             {
-                                tb.SelectAll();
+                                var valueStart = colonIndex + 1;
+                                while (valueStart < text.Length && char.IsWhiteSpace(text[valueStart]))
+                                {
+                                    valueStart++;
+                                }
+                                if (valueStart < text.Length)
+                                {
+                                    tb.Select(valueStart, text.Length - valueStart);
+                                }
                             }
                         };
                         AddContextMenu(tb);
@@ -346,6 +372,10 @@ namespace development_kits.Pages
                 if (child is Expander exp)
                 {
                     exp.IsExpanded = isExpanded;
+                    if (exp.Header is StackPanel headerPanel && headerPanel.Children.Count > 0 && headerPanel.Children[0] is TextBlock arrowIcon)
+                    {
+                        arrowIcon.Text = isExpanded ? "▼" : "▶";
+                    }
                     if (exp.Content is Panel innerPanel)
                     {
                         ExpandOrCollapseRecursive(innerPanel, isExpanded);

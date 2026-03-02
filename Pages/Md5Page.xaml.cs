@@ -48,9 +48,41 @@ namespace development_kits.Pages
             }
         }
 
-        private void Copy32Lower_Click(object sender, RoutedEventArgs e) => ClipboardHelper.CopyWithFeedback(Out32Lower.Text, (Button)sender);
-        private void Copy32Upper_Click(object sender, RoutedEventArgs e) => ClipboardHelper.CopyWithFeedback(Out32Upper.Text, (Button)sender);
-        private void Copy16Lower_Click(object sender, RoutedEventArgs e) => ClipboardHelper.CopyWithFeedback(Out16Lower.Text, (Button)sender);
-        private void Copy16Upper_Click(object sender, RoutedEventArgs e) => ClipboardHelper.CopyWithFeedback(Out16Upper.Text, (Button)sender);
+        private void Copy32Lower_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Out32Lower.Text))
+            {
+                MessageBox.Show("请先输入内容并点击转换按钮", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            ClipboardHelper.CopyWithFeedback(Out32Lower.Text, (Button)sender);
+        }
+        private void Copy32Upper_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Out32Upper.Text))
+            {
+                MessageBox.Show("请先输入内容并点击转换按钮", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            ClipboardHelper.CopyWithFeedback(Out32Upper.Text, (Button)sender);
+        }
+        private void Copy16Lower_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Out16Lower.Text))
+            {
+                MessageBox.Show("请先输入内容并点击转换按钮", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            ClipboardHelper.CopyWithFeedback(Out16Lower.Text, (Button)sender);
+        }
+        private void Copy16Upper_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(Out16Upper.Text))
+            {
+                MessageBox.Show("请先输入内容并点击转换按钮", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            ClipboardHelper.CopyWithFeedback(Out16Upper.Text, (Button)sender);
+        }
     }
 }
