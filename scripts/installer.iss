@@ -30,7 +30,6 @@ VersionInfoDescription={#AppName} Installer
 VersionInfoCopyright=Copyright (C) 2024
 VersionInfoProductName={#AppName}
 VersionInfoProductVersion={#AppVersion}
-VersionInfoIcon={#IconPath}
 SetupIconFile={#IconPath}
 Uninstallable=yes
 UsePreviousAppDir=yes
