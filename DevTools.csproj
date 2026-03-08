@@ -8,6 +8,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Resources\Images\logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,12 +25,8 @@
     <Resource Include="Fonts\fa-solid-900.ttf" />
     <Resource Include="Fonts\fa-regular-400.ttf" />
     <Resource Include="Fonts\fa-brands-400.ttf" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Resources\Images\logo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Images\logo.ico" />
+    <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>
 
 </Project>
