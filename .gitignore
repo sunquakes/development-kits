@@ -116,6 +116,11 @@ Thumbs.db
 *.cache
 *.pdb
 
+# Code signing certificates (DO NOT COMMIT)
+*.pfx
+*.p12
+build/certs/
+
 # Node
 node_modules/
 

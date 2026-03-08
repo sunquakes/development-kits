@@ -48,6 +48,72 @@ jobs:
       - name: Publish win-arm64
         run: dotnet publish DevTools.csproj -c Release -r win-arm64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=false -o publish\win-arm64
 
+      - name: Decode signing certificate
+        if: env.CERTIFICATE_BASE64 != ''
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.CERTIFICATE_BASE64 }}
+        run: |
+          $certPath = Join-Path $env:RUNNER_TEMP "cert.pfx"
+          [System.IO.File]::WriteAllBytes($certPath, [System.Convert]::FromBase64String($env:CERTIFICATE_BASE64))
+          echo "CERT_PATH=$certPath" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Sign executables
+        if: env.CERT_PATH != ''
+        env:
+          CERT_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+        run: |
+          $signtool = Get-ChildItem -Path "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\signtool.exe" | Sort-Object { $_.VersionInfo.FileVersion } -Descending | Select-Object -First 1
+          
+          $exeFiles = @(
+            "publish\win-x86\DevTools.exe",
+            "publish\win-x64\DevTools.exe",
+            "publish\win-arm64\DevTools.exe"
+          )
+          
+          foreach ($exe in $exeFiles) {
+            Write-Host "Signing: $exe"
+            & $signtool.FullName sign /f $env:CERT_PATH /p $env:CERT_PASSWORD /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 $exe
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "Warning: Failed to sign $exe"
+            }
+          }
+        shell: pwsh
+
+      - name: Build Installers
+        run: |
+          New-Item -ItemType Directory -Force -Path installer
+          
+          $version = "${{ steps.get_version.outputs.VERSION }}"
+          
+          Write-Host "Building x64 installer..."
+          & iscc scripts/installer.iss /DAppVersion="$version" /DArchitecture="x64" /DOutputDir="installer" /DSourceDir="publish\win-x64"
+          
+          Write-Host "Building x86 installer..."
+          & iscc scripts/installer.iss /DAppVersion="$version" /DArchitecture="x86" /DOutputDir="installer" /DSourceDir="publish\win-x86"
+          
+          Write-Host "Building arm64 installer..."
+          & iscc scripts/installer.iss /DAppVersion="$version" /DArchitecture="arm64" /DOutputDir="installer" /DSourceDir="publish\win-arm64"
+        shell: pwsh
+
+      - name: Sign installers
+        if: env.CERT_PATH != ''
+        env:
+          CERT_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+        run: |
+          $signtool = Get-ChildItem -Path "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\signtool.exe" | Sort-Object { $_.VersionInfo.FileVersion } -Descending | Select-Object -First 1
+          
+          $installerFiles = Get-ChildItem -Path "installer\*.exe"
+          
+          foreach ($installer in $installerFiles) {
+            Write-Host "Signing: $($installer.FullName)"
+            & $signtool.FullName sign /f $env:CERT_PATH /p $env:CERT_PASSWORD /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 $installer.FullName
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "Warning: Failed to sign $($installer.FullName)"
+            }
+          }
+        shell: pwsh
+
       - name: Rename executables
         run: |
           Rename-Item -Path publish\win-x86\DevTools.exe -NewName DevTools-win-x86.exe
@@ -63,5 +129,6 @@ jobs:
             publish/win-x86/DevTools-win-x86.exe
             publish/win-x64/DevTools-win-x64.exe
             publish/win-arm64/DevTools-win-arm64.exe
+            installer/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
