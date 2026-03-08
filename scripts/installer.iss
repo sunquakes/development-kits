@@ -2,6 +2,7 @@
 #define AppPublisher "DevTools"
 #define AppURL "https://github.com/user/devtools"
 #define AppExeName "DevTools.exe"
+#define IconPath "..\Resources\Images\logo.ico"
 
 [Setup]
 AppId={{8B5F3C7A-1D2E-4F6B-9C3A-5E7D8F1A2B3C}
@@ -29,16 +30,12 @@ VersionInfoDescription={#AppName} Installer
 VersionInfoCopyright=Copyright (C) 2024
 VersionInfoProductName={#AppName}
 VersionInfoProductVersion={#AppVersion}
-
-#if "x64" == "{#Architecture}"
-ArchitecturesAllowed=x64compatible
-ArchitecturesInstallIn64BitMode=x64compatible
-#elif "arm64" == "{#Architecture}"
-ArchitecturesAllowed=arm64
-ArchitecturesInstallIn64BitMode=arm64
-#else
-ArchitecturesAllowed=x86
-#endif
+VersionInfoIcon={#IconPath}
+SetupIconFile={#IconPath}
+Uninstallable=yes
+UsePreviousAppDir=yes
+DisableDirPage=no
+DisableProgramGroupPage=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
