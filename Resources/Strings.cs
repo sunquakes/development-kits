@@ -58,5 +58,22 @@ namespace DevTools.Resources
         public static string PageJSONFormat => Get("PageJSONFormat");
         public static string CopySuccess => Get("CopySuccess");
         public static string CopyEmpty => Get("CopyEmpty");
+        public static string Info => Get("Info");
+        public static string Error => Get("Error");
+        public static string Warning => Get("Warning");
+        public static string EnterBase64 => Get("EnterBase64");
+        public static string Base64DecodeFailed => Get("Base64DecodeFailed");
+        public static string DecodeFailed => Get("DecodeFailed");
+        public static string EnterTextToEncode => Get("EnterTextToEncode");
+        public static string QRCodeGenerateFailed => Get("QRCodeGenerateFailed");
+        public static string NoQRCodeToSave => Get("NoQRCodeToSave");
+        public static string NoBarcodeToSave => Get("NoBarcodeToSave");
+        public static string SaveSuccess => Get("SaveSuccess");
+        public static string SaveFailed => Get("SaveFailed");
+        public static string ComputeFirst => Get("ComputeFirst");
+        public static string EnterJSON => Get("EnterJSON");
+        public static string JSONFormatFailed => Get("JSONFormatFailed");
+        public static string LoadImageFailed => Get("LoadImageFailed");
+        public static string BarcodeGenerateFailed => Get("BarcodeGenerateFailed");
     }
 }

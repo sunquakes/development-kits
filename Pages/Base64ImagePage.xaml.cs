@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using DevTools.Resources;
 
 namespace DevTools.Pages
 {
@@ -23,13 +24,13 @@ namespace DevTools.Pages
             var base64 = (InputText.Text ?? string.Empty).Trim();
             if (string.IsNullOrWhiteSpace(base64))
             {
-                MessageBox.Show("请输入Base64字符串", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Strings.EnterBase64, Strings.Info, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             try
             {
-                // 支持 data URI 前缀
+                // Support data URI prefix
                 var commaIndex = base64.IndexOf(',');
                 if (base64.StartsWith("data:", StringComparison.OrdinalIgnoreCase) && commaIndex >= 0)
                 {
@@ -48,17 +49,16 @@ namespace DevTools.Pages
 
                 ResultImage.Source = bmp;
 
-                // ��ʾ�ߴ���ֽڴ�С
                 ImageDimensionsText.Text = $"{bmp.PixelWidth} x {bmp.PixelHeight}";
                 ImageSizeText.Text = FormatBytes(bytes.Length);
             }
             catch (FormatException)
             {
-                MessageBox.Show("Base64 ����ʧ�ܣ����벻����Ч�� Base64 �ַ�����", "����", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Strings.Base64DecodeFailed, Strings.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("����ʧ��: " + ex.Message, "����", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{Strings.DecodeFailed}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

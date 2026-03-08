@@ -9,16 +9,16 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <!-- 左右列固定宽度 -->
+            <!-- Fixed width columns -->
             <ColumnDefinition Width="300" />
-            <!-- 两侧用于保证中间按钮居中对齐的等宽星号列 -->
+            <!-- Star columns on both sides to center the middle button -->
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="360" />
         </Grid.ColumnDefinitions>
 
-        <!-- Back button 单独一行，底部留一点距离 -->
+        <!-- Back button on its own row with bottom margin -->
         <Button Click="Back_Click" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="0,0,0,12" Width="40" Height="40" ToolTip="{x:Static resources:Strings.Back}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -31,19 +31,19 @@
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Text="{x:Static resources:Strings.PageMD5}" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,8" />
 
-        <!-- Left: input (固定列宽，左对齐，内部元素宽度100%) -->
+        <!-- Left: input (fixed width, left aligned, 100% width for inner elements) -->
         <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Width="300">
             <TextBox x:Name="InputText" Height="260" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" />
         </StackPanel>
 
-        <!-- Middle: compute button (居中对齐) -->
+        <!-- Middle: compute button (center aligned) -->
         <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20,0">
             <Button Click="Compute_Click" Width="60" Height="32" HorizontalAlignment="Center" ToolTip="{x:Static resources:Strings.Convert}">
                 <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf362;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
             </Button>
         </StackPanel>
 
-        <!-- Right: 4 read-only outputs with labels and copy buttons (固定列宽，右对齐，内部元素宽度100%) -->
+        <!-- Right: 4 read-only outputs with labels and copy buttons (fixed width, right aligned, 100% width for inner elements) -->
         <StackPanel Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right" Width="360">
             <TextBlock Text="{x:Static resources:Strings.Result}" FontWeight="Bold" Margin="0,0,0,8" />
 

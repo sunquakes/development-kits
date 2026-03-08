@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Text.Json;
 using DevTools.Helpers;
+using DevTools.Resources;
 using System.Collections.Generic;
 using System.Windows.Controls.Primitives;
 
@@ -28,7 +29,7 @@ namespace DevTools.Pages
             var json = InputText.Text ?? string.Empty;
             if (string.IsNullOrWhiteSpace(json))
             {
-                MessageBox.Show("请输入JSON字符串", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Strings.EnterJSON, Strings.Info, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -91,7 +92,7 @@ namespace DevTools.Pages
             }
             catch (JsonException ex)
             {
-                MessageBox.Show("JSON 格式化失败: " + ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"{Strings.JSONFormatFailed}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
         private UIElement CreateVisualForElement(string name, JsonElement el)
@@ -347,7 +348,7 @@ namespace DevTools.Pages
         private void AddContextMenu(TextBox tb)
         {
             var contextMenu = new ContextMenu();
-            var copyItem = new MenuItem { Header = "复制" };
+            var copyItem = new MenuItem { Header = Strings.Copy };
             copyItem.Click += (s, e) => ClipboardHelper.CopyWithFeedback(tb.Text, null);
             contextMenu.Items.Add(copyItem);
             tb.ContextMenu = contextMenu;

@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using DevTools.Helpers;
+using DevTools.Resources;
 
 namespace DevTools.Pages
 {
@@ -57,7 +58,7 @@ namespace DevTools.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show("加载图片失败: " + ex.Message, "错误", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{Strings.LoadImageFailed}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

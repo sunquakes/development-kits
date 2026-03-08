@@ -38,7 +38,7 @@
             </Button>
         </StackPanel>
 
-        <!-- 可折叠的格式化 JSON 显示（替代原来的文本输出与下方面板） -->
+        <!-- Collapsible formatted JSON display -->
         <Border Grid.Row="4" BorderBrush="LightGray" BorderThickness="1" Padding="4">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel x:Name="JsonOutputPanel" />

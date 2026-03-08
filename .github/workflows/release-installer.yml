@@ -1,11 +1,12 @@
-name: Build installer on Release
+name: Build and Release
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
-  build-installer:
+  build-and-release:
     runs-on: windows-latest
 
     steps:
@@ -17,47 +18,50 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Get version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+        shell: bash
+
+      - name: Extract latest changelog
+        id: changelog
+        run: |
+          $content = Get-Content CHANGELOG.md -Raw
+          $pattern = '(?s)(## \[.*?\].*?)(?=\n---|\Z)'
+          if ($content -match $pattern) {
+            $latest = $matches[1].Trim()
+            echo "CONTENT<<EOF" >> $env:GITHUB_OUTPUT
+            echo "$latest" >> $env:GITHUB_OUTPUT
+            echo "EOF" >> $env:GITHUB_OUTPUT
+          }
+        shell: pwsh
+
       - name: Restore
-        run: dotnet restore development-kits.csproj
+        run: dotnet restore DevTools.csproj
 
-      - name: Publish self-contained single-file (win-x64)
+      - name: Publish win-x86
+        run: dotnet publish DevTools.csproj -c Release -r win-x86 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=false -o publish\win-x86
+
+      - name: Publish win-x64
+        run: dotnet publish DevTools.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=false -o publish\win-x64
+
+      - name: Publish win-arm64
+        run: dotnet publish DevTools.csproj -c Release -r win-arm64 --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:PublishTrimmed=false -o publish\win-arm64
+
+      - name: Rename executables
         run: |
-          dotnet publish development-kits.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true /p:PublishTrimmed=false -o publish\win-x64
+          Rename-Item -Path publish\win-x86\DevTools.exe -NewName DevTools-win-x86.exe
+          Rename-Item -Path publish\win-x64\DevTools.exe -NewName DevTools-win-x64.exe
+          Rename-Item -Path publish\win-arm64\DevTools.exe -NewName DevTools-win-arm64.exe
 
-      - name: Install Inno Setup (choco)
-        run: choco install innosetup -y
-
-      - name: Create Inno Setup script
-        run: |
-          cat > installer.iss << 'ISS'
-          [Setup]
-          AppName=development-kits
-          AppVersion=${{ github.event.release.tag_name }}
-          DefaultDirName={pf}\development-kits
-          OutputDir=installer
-          OutputBaseFilename=development-kits-setup-${{ github.event.release.tag_name }}
-          Compression=lzma
-          SolidCompression=yes
-
-          [Files]
-          ; include all published files
-          Source: "publish\\win-x64\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-
-          [Icons]
-          Name: "{group}\development-kits"; Filename: "{app}\\development-kits.exe"
-          ISS
-
-      - name: Build installer (Inno Setup)
-        env:
-          PATH: ${{ env.PATH }}
-        run: |
-          echo "Running Inno Setup Compiler to build installer..."
-          iscc installer.iss
-
-      - name: Upload installer to release
-        uses: actions/upload-release-asset@v1
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: installer/development-kits-setup-${{ github.event.release.tag_name }}.exe
-          asset_name: development-kits-setup-${{ github.event.release.tag_name }}.exe
-          asset_content_type: application/octet-stream
+          name: DevTools v${{ steps.get_version.outputs.VERSION }}
+          body: ${{ steps.changelog.outputs.CONTENT }}
+          files: |
+            publish/win-x86/DevTools-win-x86.exe
+            publish/win-x64/DevTools-win-x64.exe
+            publish/win-arm64/DevTools-win-arm64.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

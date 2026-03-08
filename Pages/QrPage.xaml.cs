@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using DevTools.Resources;
 using ZXing;
 using ZXing.Common;
 
@@ -34,7 +35,7 @@ namespace DevTools.Pages
             var text = InputText.Text ?? string.Empty;
             if (string.IsNullOrWhiteSpace(text))
             {
-                MessageBox.Show("������Ҫ������ı���", "��ʾ", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Strings.EnterTextToEncode, Strings.Info, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -81,7 +82,7 @@ namespace DevTools.Pages
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"���ɶ�ά��ʱ������{ex.Message}", "����", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{Strings.QRCodeGenerateFailed}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -92,13 +93,13 @@ namespace DevTools.Pages
 
             if (entry.Bitmap == null)
             {
-                MessageBox.Show("��־�޿ɱ����ͼ��", "��ʾ", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Strings.NoQRCodeToSave, Strings.Info, MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
             var dlg = new Microsoft.Win32.SaveFileDialog
             {
-                Filter = "PNG �ļ� (*.png)|*.png|JPEG �ļ� (*.jpg;*.jpeg)|*.jpg;*.jpeg|Bitmap (*.bmp)|*.bmp",
+                Filter = "PNG files (*.png)|*.png|JPEG files (*.jpg;*.jpeg)|*.jpg;*.jpeg|Bitmap (*.bmp)|*.bmp",
                 FileName = "qrcode.png"
             };
 
@@ -112,11 +113,11 @@ namespace DevTools.Pages
                     else if (ext == ".bmp") fmt = ImageFormat.Bmp;
 
                     entry.Bitmap.Save(dlg.FileName, fmt);
-                    MessageBox.Show("����ɹ���", "���", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Strings.SaveSuccess, Strings.Info, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"����ʱ������{ex.Message}", "����", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"{Strings.SaveFailed}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

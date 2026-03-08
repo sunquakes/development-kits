@@ -172,4 +172,55 @@
   <data name="CopyEmpty" xml:space="preserve">
     <value>Nothing to copy!</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="EnterBase64" xml:space="preserve">
+    <value>Please enter a Base64 string</value>
+  </data>
+  <data name="Base64DecodeFailed" xml:space="preserve">
+    <value>Base64 decode failed, please enter a valid Base64 string</value>
+  </data>
+  <data name="DecodeFailed" xml:space="preserve">
+    <value>Decode failed</value>
+  </data>
+  <data name="EnterTextToEncode" xml:space="preserve">
+    <value>Please enter text to encode</value>
+  </data>
+  <data name="QRCodeGenerateFailed" xml:space="preserve">
+    <value>Error generating QR code</value>
+  </data>
+  <data name="NoQRCodeToSave" xml:space="preserve">
+    <value>No QR code to save</value>
+  </data>
+  <data name="NoBarcodeToSave" xml:space="preserve">
+    <value>No barcode to save</value>
+  </data>
+  <data name="SaveSuccess" xml:space="preserve">
+    <value>Saved successfully!</value>
+  </data>
+  <data name="SaveFailed" xml:space="preserve">
+    <value>Save failed</value>
+  </data>
+  <data name="ComputeFirst" xml:space="preserve">
+    <value>Please enter content and click convert first</value>
+  </data>
+  <data name="EnterJSON" xml:space="preserve">
+    <value>Please enter a JSON string</value>
+  </data>
+  <data name="JSONFormatFailed" xml:space="preserve">
+    <value>JSON format failed</value>
+  </data>
+  <data name="LoadImageFailed" xml:space="preserve">
+    <value>Failed to load image</value>
+  </data>
+  <data name="BarcodeGenerateFailed" xml:space="preserve">
+    <value>Error generating barcode</value>
+  </data>
 </root>
