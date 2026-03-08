@@ -1,4 +1,4 @@
-# DevTools / 开发者工具
+# 开发者工具
 
 <p align="center">
   <img src="Resources/Images/logo.png" alt="DevTools Logo" width="128" height="128">
