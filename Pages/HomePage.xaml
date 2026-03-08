@@ -1,57 +1,47 @@
-<Page x:Class="development_kits.Pages.HomePage"
+<Page x:Class="DevTools.Pages.HomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:development_kits.Pages"
-      xmlns:resources="clr-namespace:development_kits.Resources"
+      xmlns:local="clr-namespace:DevTools.Pages"
+      xmlns:resources="clr-namespace:DevTools.Resources"
       Title="HomePage">
     <Grid Margin="20">
-        <!-- Title at top, buttons vertically centered in remaining space -->
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,8,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0" Text="{x:Static resources:Strings.Toolbox}" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,40,0,8" />
-
-            <UniformGrid Grid.Row="1" Rows="2" Columns="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
-                <Button x:Name="BtnMd5" Click="BtnMd5_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
-                    <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf023;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
-                        <TextBlock Text="{x:Static resources:Strings.MD5}" FontSize="16" HorizontalAlignment="Center" Margin="0,8,0,0" Foreground="#FFFFFF" />
-                    </StackPanel>
-                </Button>
-                <Button x:Name="BtnBarcode" Click="BtnBarcode_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
-                    <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf02a;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
-                        <TextBlock Text="{x:Static resources:Strings.Barcode}" FontSize="16" HorizontalAlignment="Center" Margin="0,8,0,0" Foreground="#FFFFFF" />
-                    </StackPanel>
-                </Button>
-                <Button x:Name="BtnQr" Click="BtnQr_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
-                    <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf029;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
-                        <TextBlock Text="{x:Static resources:Strings.QRCode}" FontSize="16" HorizontalAlignment="Center" Margin="0,8,0,0" Foreground="#FFFFFF" />
-                    </StackPanel>
-                </Button>
-                <Button x:Name="BtnBase64ToImage" Click="BtnBase64ToImage_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
-                    <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf03e;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
-                        <TextBlock Text="{x:Static resources:Strings.Base64ToImage}" FontSize="14" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#FFFFFF" />
-                    </StackPanel>
-                </Button>
-                <Button x:Name="BtnImageToBase64" Click="BtnImageToBase64_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
-                    <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf093;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
-                        <TextBlock Text="{x:Static resources:Strings.ImageToBase64}" FontSize="14" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#FFFFFF" />
-                    </StackPanel>
-                </Button>
-                <Button x:Name="BtnJsonFormat" Click="BtnJsonFormat_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
-                    <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf1c9;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
-                        <TextBlock Text="{x:Static resources:Strings.JSONFormat}" FontSize="14" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#FFFFFF" />
-                    </StackPanel>
-                </Button>
-            </UniformGrid>
-        </Grid>
+        <UniformGrid Rows="2" Columns="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="BtnMd5" Click="BtnMd5_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
+                <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf023;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
+                    <TextBlock Text="{x:Static resources:Strings.MD5}" FontSize="16" HorizontalAlignment="Center" Margin="0,8,0,0" Foreground="#FFFFFF" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnBarcode" Click="BtnBarcode_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
+                <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf02a;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
+                    <TextBlock Text="{x:Static resources:Strings.Barcode}" FontSize="16" HorizontalAlignment="Center" Margin="0,8,0,0" Foreground="#FFFFFF" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnQr" Click="BtnQr_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
+                <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf029;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
+                    <TextBlock Text="{x:Static resources:Strings.QRCode}" FontSize="16" HorizontalAlignment="Center" Margin="0,8,0,0" Foreground="#FFFFFF" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnBase64ToImage" Click="BtnBase64ToImage_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
+                <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf03e;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
+                    <TextBlock Text="{x:Static resources:Strings.Base64ToImage}" FontSize="14" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#FFFFFF" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnImageToBase64" Click="BtnImageToBase64_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
+                <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf093;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
+                    <TextBlock Text="{x:Static resources:Strings.ImageToBase64}" FontSize="14" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#FFFFFF" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="BtnJsonFormat" Click="BtnJsonFormat_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
+                <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf1c9;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />
+                    <TextBlock Text="{x:Static resources:Strings.JSONFormat}" FontSize="14" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#FFFFFF" />
+                </StackPanel>
+            </Button>
+        </UniformGrid>
     </Grid>
 </Page>

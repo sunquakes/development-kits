@@ -2,11 +2,11 @@ using System.Globalization;
 using System.Resources;
 using System.Windows;
 
-namespace development_kits.Resources
+namespace DevTools.Resources
 {
     public static class Strings
     {
-        private static readonly ResourceManager _resourceManager = new ResourceManager("development_kits.Resources.Strings", typeof(Strings).Assembly);
+        private static readonly ResourceManager _resourceManager = new ResourceManager("DevTools.Resources.Strings", typeof(Strings).Assembly);
 
         public static string Get(string key)
         {

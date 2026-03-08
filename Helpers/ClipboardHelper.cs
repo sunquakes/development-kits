@@ -6,7 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Threading;
 
-namespace development_kits.Helpers
+namespace DevTools.Helpers
 {
     public static class ClipboardHelper
     {

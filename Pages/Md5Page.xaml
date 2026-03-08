@@ -1,7 +1,7 @@
-<Page x:Class="development_kits.Pages.Md5Page"
+<Page x:Class="DevTools.Pages.Md5Page"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:resources="clr-namespace:development_kits.Resources"
+      xmlns:resources="clr-namespace:DevTools.Resources"
       Title="Md5Page">
     <Grid Margin="20">
         <Grid.RowDefinitions>

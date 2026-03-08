@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,8 +8,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DevTools.Resources;
 
-namespace development_kits
+namespace DevTools
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -19,6 +20,7 @@ namespace development_kits
         public MainWindow()
         {
             InitializeComponent();
+            Title = Strings.Toolbox;
             MainFrame.Navigate(new Pages.HomePage());
         }
     }

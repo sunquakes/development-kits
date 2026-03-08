@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
-using development_kits.Helpers;
+using DevTools.Helpers;
 
-namespace development_kits.Pages
+namespace DevTools.Pages
 {
     public partial class ImageToBase64Page : Page
     {

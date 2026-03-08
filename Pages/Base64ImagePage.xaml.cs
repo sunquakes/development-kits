@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace development_kits.Pages
+namespace DevTools.Pages
 {
     public partial class Base64ImagePage : Page
     {

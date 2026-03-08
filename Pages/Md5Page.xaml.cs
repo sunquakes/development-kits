@@ -2,9 +2,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using development_kits.Helpers;
+using DevTools.Helpers;
 
-namespace development_kits.Pages
+namespace DevTools.Pages
 {
     public partial class Md5Page : Page
     {
