@@ -85,15 +85,16 @@ jobs:
           New-Item -ItemType Directory -Force -Path installer
           
           $version = "${{ steps.get_version.outputs.VERSION }}"
+          $rootDir = $PWD.Path
           
           Write-Host "Building x64 installer..."
-          & iscc scripts/installer.iss /DAppVersion="$version" /DArchitecture="x64" /DOutputDir="installer" /DSourceDir="publish\win-x64"
+          & iscc "$rootDir\scripts\installer.iss" /DAppVersion="$version" /DArchitecture="x64" /DOutputDir="$rootDir\installer" /DSourceDir="$rootDir\publish\win-x64"
           
           Write-Host "Building x86 installer..."
-          & iscc scripts/installer.iss /DAppVersion="$version" /DArchitecture="x86" /DOutputDir="installer" /DSourceDir="publish\win-x86"
+          & iscc "$rootDir\scripts\installer.iss" /DAppVersion="$version" /DArchitecture="x86" /DOutputDir="$rootDir\installer" /DSourceDir="$rootDir\publish\win-x86"
           
           Write-Host "Building arm64 installer..."
-          & iscc scripts/installer.iss /DAppVersion="$version" /DArchitecture="arm64" /DOutputDir="installer" /DSourceDir="publish\win-arm64"
+          & iscc "$rootDir\scripts\installer.iss" /DAppVersion="$version" /DArchitecture="arm64" /DOutputDir="$rootDir\installer" /DSourceDir="$rootDir\publish\win-arm64"
         shell: pwsh
 
       - name: Sign installers
