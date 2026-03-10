@@ -1,6 +1,8 @@
 using System;
 using System.Configuration;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -75,38 +77,14 @@ namespace DevTools
 
         private void InitializeNotifyIcon()
         {
-            try
+            Icon? icon = LoadIcon();
+
+            _notifyIcon = new NotifyIcon
             {
-                var iconPath = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Resources", "Images", "logo.ico");
-                if (System.IO.File.Exists(iconPath))
-                {
-                    var icon = new System.Drawing.Icon(iconPath);
-                    _notifyIcon = new NotifyIcon
-                    {
-                        Icon = icon,
-                        Text = Strings.Toolbox,
-                        Visible = false
-                    };
-                }
-                else
-                {
-                    _notifyIcon = new NotifyIcon
-                    {
-                        Icon = System.Drawing.SystemIcons.Application,
-                        Text = Strings.Toolbox,
-                        Visible = false
-                    };
-                }
-            }
-            catch
-            {
-                _notifyIcon = new NotifyIcon
-                {
-                    Icon = System.Drawing.SystemIcons.Application,
-                    Text = Strings.Toolbox,
-                    Visible = false
-                };
-            }
+                Icon = icon ?? SystemIcons.Application,
+                Text = Strings.Toolbox,
+                Visible = false
+            };
 
             _notifyIcon.MouseClick += (sender, e) =>
             {
@@ -124,6 +102,65 @@ namespace DevTools
             contextMenu.Items.Add(showItem);
             contextMenu.Items.Add(exitItem);
             _notifyIcon.ContextMenuStrip = contextMenu;
+        }
+
+        private Icon? LoadIcon()
+        {
+            Icon? icon = null;
+
+            try
+            {
+                var iconPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Images", "logo.ico");
+                if (System.IO.File.Exists(iconPath))
+                {
+                    icon = new Icon(iconPath);
+                }
+            }
+            catch
+            {
+            }
+
+            if (icon == null)
+            {
+                try
+                {
+                    var assembly = Assembly.GetExecutingAssembly();
+                    var resourceNames = assembly.GetManifestResourceNames();
+                    
+                    foreach (var name in resourceNames)
+                    {
+                        if (name.EndsWith("logo.ico", StringComparison.OrdinalIgnoreCase))
+                        {
+                            using var stream = assembly.GetManifestResourceStream(name);
+                            if (stream != null)
+                            {
+                                icon = new Icon(stream);
+                                break;
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            if (icon == null)
+            {
+                try
+                {
+                    var exePath = Assembly.GetExecutingAssembly().Location;
+                    if (!string.IsNullOrEmpty(exePath) && System.IO.File.Exists(exePath))
+                    {
+                        icon = System.Drawing.Icon.ExtractAssociatedIcon(exePath);
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            return icon;
         }
 
         private void ShowWindow()
