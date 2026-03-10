@@ -27,6 +27,7 @@ namespace DevTools
         private NotifyIcon? _notifyIcon;
         private bool _firstClose = true;
         private bool _minimizeToTray;
+        private bool _isClosing = false;
 
         public MainWindow()
         {
@@ -135,12 +136,18 @@ namespace DevTools
 
         private void ExitApplication()
         {
+            _isClosing = true;
             _notifyIcon?.Dispose();
             Application.Current.Shutdown();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            if (_isClosing)
+            {
+                return;
+            }
+
             if (_firstClose)
             {
                 e.Cancel = true;
@@ -157,17 +164,14 @@ namespace DevTools
                     
                     if (_minimizeToTray)
                     {
+                        _firstClose = false;
                         MinimizeToTray();
                     }
                     else
                     {
-                        _firstClose = false;
-                        Close();
+                        _isClosing = true;
+                        Dispatcher.BeginInvoke(new Action(() => Close()));
                     }
-                }
-                else
-                {
-                    _firstClose = false;
                 }
             }
             else if (_minimizeToTray)

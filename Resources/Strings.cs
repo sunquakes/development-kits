@@ -84,5 +84,12 @@ namespace DevTools.Resources
         public static string DirectCloseTip => Get("DirectCloseTip");
         public static string OK => Get("OK");
         public static string Cancel => Get("Cancel");
+        public static string ClickToPreview => Get("ClickToPreview");
+        public static string NoImageToPreview => Get("NoImageToPreview");
+        public static string ImagePreview => Get("ImagePreview");
+        public static string SaveImage => Get("SaveImage");
+        public static string Close => Get("Close");
+        public static string ImageSaved => Get("ImageSaved");
+        public static string Success => Get("Success");
     }
 }
