@@ -25,7 +25,64 @@
                 <TextBlock Text="{x:Static resources:Strings.Size}" FontWeight="Bold" Margin="12,0,0,0" />
                 <TextBlock x:Name="ImageSizeText" Text="-" />
             </StackPanel>
-            <Image x:Name="ResultImage" Height="200" />
+            
+            <!-- Image with click to zoom and save button -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Image with click event -->
+                <Border Grid.Row="0" BorderBrush="#666" BorderThickness="1" CornerRadius="4">
+                    <Image x:Name="ResultImage" 
+                           Height="300" 
+                           Stretch="Uniform"
+                           Cursor="Hand"
+                           MouseLeftButtonUp="ResultImage_MouseLeftButtonUp"
+                           ToolTip="Click to zoom">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Opacity" Value="0.8"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                </Border>
+                
+                <!-- Action buttons -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8">
+                    <Button x:Name="SaveButton" 
+                            Click="SaveButton_Click" 
+                            Width="32" 
+                            Height="32" 
+                            Margin="4"
+                            Visibility="Collapsed"
+                            ToolTip="Save image">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" 
+                                   Text="&#xf0c7;" 
+                                   FontSize="14" 
+                                   FontWeight="Bold" 
+                                   Foreground="#FFFFFF" />
+                    </Button>
+                    <Button x:Name="ZoomButton" 
+                            Click="ZoomButton_Click" 
+                            Width="32" 
+                            Height="32" 
+                            Margin="4"
+                            Visibility="Collapsed"
+                            ToolTip="Zoom image">
+                        <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" 
+                                   Text="&#xf00e;" 
+                                   FontSize="14" 
+                                   FontWeight="Bold" 
+                                   Foreground="#FFFFFF" />
+                    </Button>
+                </StackPanel>
+            </Grid>
         </StackPanel>
     </Grid>
 </Page>

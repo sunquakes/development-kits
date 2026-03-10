@@ -5,6 +5,10 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Windows.Threading;
+using Button = System.Windows.Controls.Button;
+using Clipboard = System.Windows.Clipboard;
+using Color = System.Windows.Media.Color;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace DevTools.Helpers
 {

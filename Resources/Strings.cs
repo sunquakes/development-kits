@@ -75,5 +75,14 @@ namespace DevTools.Resources
         public static string JSONFormatFailed => Get("JSONFormatFailed");
         public static string LoadImageFailed => Get("LoadImageFailed");
         public static string BarcodeGenerateFailed => Get("BarcodeGenerateFailed");
+        public static string FirstCloseChoose => Get("FirstCloseChoose");
+        public static string Tip => Get("Tip");
+        public static string Show => Get("Show");
+        public static string Exit => Get("Exit");
+        public static string MinimizedToTray => Get("MinimizedToTray");
+        public static string MinimizeToTrayTip => Get("MinimizeToTrayTip");
+        public static string DirectCloseTip => Get("DirectCloseTip");
+        public static string OK => Get("OK");
+        public static string Cancel => Get("Cancel");
     }
 }

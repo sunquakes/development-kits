@@ -223,4 +223,73 @@
   <data name="BarcodeGenerateFailed" xml:space="preserve">
     <value>Error generating barcode</value>
   </data>
+  <data name="ClickToZoom" xml:space="preserve">
+    <value>Click to zoom</value>
+  </data>
+  <data name="SaveImage" xml:space="preserve">
+    <value>Save image</value>
+  </data>
+  <data name="ZoomImage" xml:space="preserve">
+    <value>Zoom image</value>
+  </data>
+  <data name="ImagePreview" xml:space="preserve">
+    <value>Image Preview</value>
+  </data>
+  <data name="ZoomIn" xml:space="preserve">
+    <value>Zoom In</value>
+  </data>
+  <data name="ZoomOut" xml:space="preserve">
+    <value>Zoom Out</value>
+  </data>
+  <data name="FitToWindow" xml:space="preserve">
+    <value>Fit to Window</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ImageSavedSuccessfully" xml:space="preserve">
+    <value>Image saved to: {0}</value>
+  </data>
+  <data name="PNGFiles" xml:space="preserve">
+    <value>PNG Files</value>
+  </data>
+  <data name="JPEGFiles" xml:space="preserve">
+    <value>JPEG Files</value>
+  </data>
+  <data name="BMPFiles" xml:space="preserve">
+    <value>BMP Files</value>
+  </data>
+  <data name="AllFiles" xml:space="preserve">
+    <value>All Files</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="FirstCloseChoose" xml:space="preserve">
+    <value>First time closing, would you like to:</value>
+  </data>
+  <data name="Tip" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show Window</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="MinimizedToTray" xml:space="preserve">
+    <value>Minimized to system tray</value>
+  </data>
+  <data name="MinimizeToTrayTip" xml:space="preserve">
+    <value>Minimize to system tray (keep running in background)</value>
+  </data>
+  <data name="DirectCloseTip" xml:space="preserve">
+    <value>Close program directly</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
 </root>

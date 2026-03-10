@@ -11,6 +11,9 @@ using System.Windows.Media.Imaging;
 using DevTools.Resources;
 using ZXing;
 using ZXing.Common;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace DevTools.Pages
 {

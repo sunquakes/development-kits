@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using DevTools.Helpers;
 using DevTools.Resources;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DevTools.Pages
 {

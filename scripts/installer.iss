@@ -13,7 +13,13 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
-DefaultDirName={autopf}\{#AppName}
+#if Architecture == "x64" || Architecture == "arm64"
+DefaultDirName={autopf64}\{#AppName}
+ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64
+#else
+DefaultDirName={autopf32}\{#AppName}
+#endif
 DefaultGroupName={#AppName}
 AllowNoIcons=yes
 OutputDir={#OutputDir}

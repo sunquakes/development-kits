@@ -1,11 +1,16 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Text.Json;
 using DevTools.Helpers;
 using DevTools.Resources;
 using System.Collections.Generic;
-using System.Windows.Controls.Primitives;
+using Button = System.Windows.Controls.Button;
+using TextBox = System.Windows.Controls.TextBox;
+using Panel = System.Windows.Controls.Panel;
+using Orientation = System.Windows.Controls.Orientation;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DevTools.Pages
 {
@@ -241,8 +246,18 @@ namespace DevTools.Pages
                                 var firstQuote = text.IndexOf('"', colonIndex);
                                 if (firstQuote >= 0)
                                 {
-                                    var lastQuote = text.LastIndexOf('"');
-                                    if (lastQuote > firstQuote)
+                                    // Find the closing quote by searching for the next unescaped quote
+                                    var lastQuote = firstQuote + 1;
+                                    while (lastQuote < text.Length)
+                                    {
+                                        if (text[lastQuote] == '"' && (lastQuote == 0 || text[lastQuote - 1] != '\\'))
+                                        {
+                                            break;
+                                        }
+                                        lastQuote++;
+                                    }
+                                    
+                                    if (lastQuote > firstQuote && lastQuote < text.Length)
                                     {
                                         tb.Select(firstQuote + 1, lastQuote - firstQuote - 1);
                                     }

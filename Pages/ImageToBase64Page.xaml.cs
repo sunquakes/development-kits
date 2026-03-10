@@ -6,6 +6,9 @@ using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 using DevTools.Helpers;
 using DevTools.Resources;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace DevTools.Pages
 {
