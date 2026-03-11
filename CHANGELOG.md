@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.0.2] - 2025-03-11
+
+### Added
+- Single instance application support
+  - Prevent multiple instances from running simultaneously
+  - Automatically activate existing window when attempting to launch again
+  - Works correctly even when minimized to system tray
+
+### Fixed
+- Balloon tip icon not displaying when minimized to tray
+  - Changed from system icon to application icon for better visibility
+
+### Improved
+- Cleaned up unused using statements in MainWindow.xaml.cs
+
+---
+
 ## [1.0.1] - 2025-03-10
 
 ### Added
