@@ -83,7 +83,7 @@ namespace DevTools
             {
                 Icon = icon ?? SystemIcons.Application,
                 Text = Strings.Toolbox,
-                Visible = false
+                Visible = true
             };
 
             _notifyIcon.MouseClick += (sender, e) =>
@@ -168,7 +168,6 @@ namespace DevTools
             Show();
             WindowState = WindowState.Normal;
             Activate();
-            _notifyIcon!.Visible = false;
         }
 
         private void ExitApplication()
@@ -220,8 +219,7 @@ namespace DevTools
 
         private void MinimizeToTray()
         {
-            _notifyIcon!.Visible = true;
-            _notifyIcon.ShowBalloonTip(2000, Strings.Toolbox, Strings.MinimizedToTray, ToolTipIcon.Info);
+            _notifyIcon!.ShowBalloonTip(2000, Strings.Toolbox, Strings.MinimizedToTray, ToolTipIcon.Info);
             Hide();
         }
 
