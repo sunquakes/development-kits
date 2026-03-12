@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.1.0] - 2025-03-12
+
+### Added
+- Single instance application support
+  - Prevent multiple instances from running simultaneously
+  - Automatically activate existing window when attempting to launch again
+  - Works correctly even when minimized to system tray
+- Handwritten signature page
+  - Convert signature to Base64 string
+  - Adjustable pen size with smooth strokes
+  - Save signature as image file (PNG, JPEG, BMP, GIF)
+
+### Changed
+- Removed balloon tip notification when minimizing to tray
+- Signature page UI improvements
+  - Buttons changed to icon style
+  - Pen size control repositioned to bottom toolbar
+  - Default pen size changed to 7
+  - Removed image preview, showing Base64 string directly
+- Home page cards repositioned for better visual centering
+
+### Improved
+- Cleaned up unused using statements in MainWindow.xaml.cs
+- Better stroke smoothing with FitToCurve enabled
+
+---
+
 ## [1.0.2] - 2025-03-11
 
 ### Added
