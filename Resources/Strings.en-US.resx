@@ -292,4 +292,16 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="PageSignature" xml:space="preserve">
+    <value>Handwritten Signature</value>
+  </data>
+  <data name="PenSize" xml:space="preserve">
+    <value>Pen Size</value>
+  </data>
+  <data name="SignatureEmpty" xml:space="preserve">
+    <value>Please draw signature first</value>
+  </data>
+  <data name="SignatureGenerateFailed" xml:space="preserve">
+    <value>Failed to generate signature</value>
+  </data>
 </root>

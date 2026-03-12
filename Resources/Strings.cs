@@ -84,6 +84,10 @@ namespace DevTools.Resources
         public static string DirectCloseTip => Get("DirectCloseTip");
         public static string OK => Get("OK");
         public static string Cancel => Get("Cancel");
+        public static string PageSignature => Get("PageSignature");
+        public static string PenSize => Get("PenSize");
+        public static string SignatureEmpty => Get("SignatureEmpty");
+        public static string SignatureGenerateFailed => Get("SignatureGenerateFailed");
         public static string ClickToPreview => Get("ClickToPreview");
         public static string NoImageToPreview => Get("NoImageToPreview");
         public static string ImagePreview => Get("ImagePreview");

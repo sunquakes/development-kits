@@ -39,5 +39,10 @@ namespace DevTools.Pages
         {
             NavigationService?.Navigate(new ImageToBase64Page());
         }
+
+        private void BtnSignature_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new SignaturePage());
+        }
     }
 }

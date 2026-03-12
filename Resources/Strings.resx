@@ -250,4 +250,16 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="PageSignature" xml:space="preserve">
+    <value>手写签名</value>
+  </data>
+  <data name="PenSize" xml:space="preserve">
+    <value>画笔粗细</value>
+  </data>
+  <data name="SignatureEmpty" xml:space="preserve">
+    <value>请先绘制签名</value>
+  </data>
+  <data name="SignatureGenerateFailed" xml:space="preserve">
+    <value>生成签名失败</value>
+  </data>
 </root>
