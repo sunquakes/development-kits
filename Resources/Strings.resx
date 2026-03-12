@@ -73,6 +73,9 @@
   <data name="ClearAll" xml:space="preserve">
     <value>清除全部</value>
   </data>
+  <data name="Clear" xml:space="preserve">
+    <value>清除</value>
+  </data>
   <data name="ShowOnly" xml:space="preserve">
     <value>仅显示</value>
   </data>
@@ -261,5 +264,14 @@
   </data>
   <data name="SignatureGenerateFailed" xml:space="preserve">
     <value>生成签名失败</value>
+  </data>
+  <data name="NoImageToPreview" xml:space="preserve">
+    <value>没有可预览的图片</value>
+  </data>
+  <data name="ClickToPreview" xml:space="preserve">
+    <value>点击预览</value>
+  </data>
+  <data name="ImageSaved" xml:space="preserve">
+    <value>图片已保存</value>
   </data>
 </root>

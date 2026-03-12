@@ -210,7 +210,6 @@ namespace DevTools
 
         private void MinimizeToTray()
         {
-            _notifyIcon!.ShowBalloonTip(2000, Strings.Toolbox, Strings.MinimizedToTray, ToolTipIcon.None);
             Hide();
         }
 

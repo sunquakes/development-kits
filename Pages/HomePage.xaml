@@ -4,8 +4,8 @@
       xmlns:local="clr-namespace:DevTools.Pages"
       xmlns:resources="clr-namespace:DevTools.Resources"
       Title="HomePage">
-    <Grid Margin="20">
-        <UniformGrid Rows="2" Columns="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid>
+        <UniformGrid Rows="2" Columns="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,150">
             <Button x:Name="BtnMd5" Click="BtnMd5_Click" Style="{StaticResource CardButtonStyle}" Margin="8">
                 <StackPanel Width="140" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf023;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" TextAlignment="Center" Foreground="#FFFFFF" />

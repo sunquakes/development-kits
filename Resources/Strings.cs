@@ -25,6 +25,7 @@ namespace DevTools.Resources
         public static string Copy => Get("Copy");
         public static string Generate => Get("Generate");
         public static string ClearAll => Get("ClearAll");
+        public static string Clear => Get("Clear");
         public static string ShowOnly => Get("ShowOnly");
         public static string Save => Get("Save");
         public static string Delete => Get("Delete");
