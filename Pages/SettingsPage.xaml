@@ -1,0 +1,60 @@
+<Page x:Class="DevTools.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:resources="clr-namespace:DevTools.Resources"
+      Title="SettingsPage">
+    <Grid Margin="20">
+        <StackPanel>
+            <Button Click="Back_Click" HorizontalAlignment="Left" Margin="0,0,0,8" Width="40" Height="40" ToolTip="{x:Static resources:Strings.Back}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#4A4A4A" CornerRadius="20" Width="40" Height="40" SnapsToDevicePixels="True">
+                            <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf060;" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFF" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            
+            <StackPanel Margin="0,20" Width="300" HorizontalAlignment="Center">
+                <CheckBox x:Name="AutoStartCheckBox" 
+                          Content="{x:Static resources:Strings.AutoStart}" 
+                          Margin="0,10"
+                          FontSize="14"
+                          Checked="AutoStartCheckBox_Checked"
+                          Unchecked="AutoStartCheckBox_Unchecked" />
+                
+                <Grid Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="TrayShowHideCheckBox" 
+                              Grid.Column="0"
+                              Content="{x:Static resources:Strings.TrayShowHide}" 
+                              FontSize="14"
+                              VerticalAlignment="Center"
+                              Checked="TrayShowHideCheckBox_Checked"
+                              Unchecked="TrayShowHideCheckBox_Unchecked" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <TextBlock Text="{x:Static resources:Strings.Hotkey}" FontWeight="Bold" FontSize="14" VerticalAlignment="Center" Margin="0,0,8,0" />
+                        <TextBox x:Name="HotkeyTextBox" 
+                                 Width="150"
+                                 Height="32"
+                                 IsReadOnly="True"
+                                 Text="{Binding HotkeyText}"
+                                 VerticalContentAlignment="Center"
+                                 PreviewKeyDown="HotkeyTextBox_PreviewKeyDown"
+                                 GotFocus="HotkeyTextBox_GotFocus"
+                                 LostFocus="HotkeyTextBox_LostFocus" />
+                    </StackPanel>
+                </Grid>
+                <TextBlock x:Name="HotkeyHintText" 
+                           Text="{x:Static resources:Strings.PressHotkeyHint}" 
+                           FontSize="12" 
+                           Foreground="#888888"
+                           Margin="0,5,0,0"
+                           Visibility="Collapsed" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

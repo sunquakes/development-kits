@@ -25,6 +25,7 @@
 - **QR Code Generator** - Generate QR codes for text/URLs
 - **Base64 ↔ Image** - Convert between Base64 strings and images
 - **JSON Formatter** - Format, expand, and collapse JSON data
+- **Handwritten Signature** - Draw signatures and convert to Base64 or save as images
 
 ## Installation
 
@@ -75,7 +76,9 @@ DevTools/
 │   ├── BarcodePage.xaml
 │   ├── QrPage.xaml
 │   ├── Base64ImagePage.xaml
-│   └── JsonFormatPage.xaml
+│   ├── ImageToBase64Page.xaml
+│   ├── JsonFormatPage.xaml
+│   └── SignaturePage.xaml
 ├── Resources/          # Resources (images, strings, fonts)
 │   ├── Images/
 │   ├── Strings.resx
@@ -96,7 +99,7 @@ The UI language automatically matches your system language.
 
 ## License
 
-MIT License
+Apache License 2.0
 
 ## Changelog
 

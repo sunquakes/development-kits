@@ -44,5 +44,10 @@ namespace DevTools.Pages
         {
             NavigationService?.Navigate(new SignaturePage());
         }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new SettingsPage());
+        }
     }
 }

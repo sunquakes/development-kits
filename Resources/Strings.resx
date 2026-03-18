@@ -265,6 +265,27 @@
   <data name="SignatureGenerateFailed" xml:space="preserve">
     <value>生成签名失败</value>
   </data>
+  <data name="PageSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>开机自启</value>
+  </data>
+  <data name="Hotkey" xml:space="preserve">
+    <value>快捷键</value>
+  </data>
+  <data name="SetHotkey" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="PressHotkey" xml:space="preserve">
+    <value>按下快捷键</value>
+  </data>
+  <data name="PressHotkeyHint" xml:space="preserve">
+    <value>按下组合键，按 Esc 取消</value>
+  </data>
+  <data name="TrayShowHide" xml:space="preserve">
+    <value>托盘显示/隐藏窗口</value>
+  </data>
   <data name="NoImageToPreview" xml:space="preserve">
     <value>没有可预览的图片</value>
   </data>

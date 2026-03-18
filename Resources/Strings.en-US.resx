@@ -307,6 +307,27 @@
   <data name="SignatureGenerateFailed" xml:space="preserve">
     <value>Failed to generate signature</value>
   </data>
+  <data name="PageSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>Auto Start</value>
+  </data>
+  <data name="Hotkey" xml:space="preserve">
+    <value>Hotkey</value>
+  </data>
+  <data name="SetHotkey" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="PressHotkey" xml:space="preserve">
+    <value>Press Hotkey</value>
+  </data>
+  <data name="PressHotkeyHint" xml:space="preserve">
+    <value>Press combination key, Esc to cancel</value>
+  </data>
+  <data name="TrayShowHide" xml:space="preserve">
+    <value>Tray Show/Hide Window</value>
+  </data>
   <data name="NoImageToPreview" xml:space="preserve">
     <value>No image to preview</value>
   </data>

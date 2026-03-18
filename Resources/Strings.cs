@@ -89,6 +89,13 @@ namespace DevTools.Resources
         public static string PenSize => Get("PenSize");
         public static string SignatureEmpty => Get("SignatureEmpty");
         public static string SignatureGenerateFailed => Get("SignatureGenerateFailed");
+        public static string PageSettings => Get("PageSettings");
+        public static string AutoStart => Get("AutoStart");
+        public static string Hotkey => Get("Hotkey");
+        public static string SetHotkey => Get("SetHotkey");
+        public static string PressHotkey => Get("PressHotkey");
+        public static string PressHotkeyHint => Get("PressHotkeyHint");
+        public static string TrayShowHide => Get("TrayShowHide");
         public static string ClickToPreview => Get("ClickToPreview");
         public static string NoImageToPreview => Get("NoImageToPreview");
         public static string ImagePreview => Get("ImagePreview");
