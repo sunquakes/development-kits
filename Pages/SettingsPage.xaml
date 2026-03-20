@@ -33,6 +33,7 @@
                               Content="{x:Static resources:Strings.TrayShowHide}" 
                               FontSize="14"
                               VerticalAlignment="Center"
+                              Margin="0,0,20,0"
                               Checked="TrayShowHideCheckBox_Checked"
                               Unchecked="TrayShowHideCheckBox_Unchecked" />
                     <StackPanel Grid.Column="1" Orientation="Horizontal">

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using DevTools.Helpers;
 using DevTools.Resources;
 using ZXing;
 using ZXing.Common;
@@ -26,11 +28,31 @@ namespace DevTools.Pages
             InitializeComponent();
             LogsList.ItemsSource = _logs;
             Unloaded += QrPage_Unloaded;
+            LoadState();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            SaveState();
             NavigationService?.Navigate(new HomePage());
+        }
+
+        private void SaveState()
+        {
+            var state = new Dictionary<string, string>
+            {
+                { "InputText", InputText.Text ?? string.Empty }
+            };
+            PageStateManager.SavePageState(this, state);
+        }
+
+        private void LoadState()
+        {
+            var state = PageStateManager.GetPageState(this);
+            if (state != null)
+            {
+                InputText.Text = state.GetValueOrDefault("InputText", string.Empty);
+            }
         }
 
         private void Generate_Click(object sender, RoutedEventArgs e)

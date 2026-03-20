@@ -45,6 +45,11 @@ namespace DevTools.Pages
             NavigationService?.Navigate(new SignaturePage());
         }
 
+        private void BtnUrlEncode_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new UrlEncodePage());
+        }
+
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
             NavigationService?.Navigate(new SettingsPage());

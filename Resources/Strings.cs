@@ -64,7 +64,6 @@ namespace DevTools.Resources
         public static string Warning => Get("Warning");
         public static string EnterBase64 => Get("EnterBase64");
         public static string Base64DecodeFailed => Get("Base64DecodeFailed");
-        public static string DecodeFailed => Get("DecodeFailed");
         public static string EnterTextToEncode => Get("EnterTextToEncode");
         public static string QRCodeGenerateFailed => Get("QRCodeGenerateFailed");
         public static string NoQRCodeToSave => Get("NoQRCodeToSave");
@@ -103,5 +102,14 @@ namespace DevTools.Resources
         public static string Close => Get("Close");
         public static string ImageSaved => Get("ImageSaved");
         public static string Success => Get("Success");
+        public static string PageUrlEncode => Get("PageUrlEncode");
+        public static string URLEncode => Get("URLEncode");
+        public static string URLDecode => Get("URLDecode");
+        public static string Input => Get("Input");
+        public static string Output => Get("Output");
+        public static string EncodeFailed => Get("EncodeFailed");
+        public static string DecodeFailed => Get("DecodeFailed");
+        public static string InputEmpty => Get("InputEmpty");
+        public static string OutputEmpty => Get("OutputEmpty");
     }
 }

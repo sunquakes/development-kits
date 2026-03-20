@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -14,11 +15,39 @@ namespace DevTools.Pages
         public Md5Page()
         {
             InitializeComponent();
+            LoadState();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            SaveState();
             NavigationService?.Navigate(new HomePage());
+        }
+
+        private void SaveState()
+        {
+            var state = new Dictionary<string, string>
+            {
+                { "InputText", InputText.Text ?? string.Empty },
+                { "Out32Lower", Out32Lower.Text ?? string.Empty },
+                { "Out32Upper", Out32Upper.Text ?? string.Empty },
+                { "Out16Lower", Out16Lower.Text ?? string.Empty },
+                { "Out16Upper", Out16Upper.Text ?? string.Empty }
+            };
+            PageStateManager.SavePageState(this, state);
+        }
+
+        private void LoadState()
+        {
+            var state = PageStateManager.GetPageState(this);
+            if (state != null)
+            {
+                InputText.Text = state.GetValueOrDefault("InputText", string.Empty);
+                Out32Lower.Text = state.GetValueOrDefault("Out32Lower", string.Empty);
+                Out32Upper.Text = state.GetValueOrDefault("Out32Upper", string.Empty);
+                Out16Lower.Text = state.GetValueOrDefault("Out16Lower", string.Empty);
+                Out16Upper.Text = state.GetValueOrDefault("Out16Upper", string.Empty);
+            }
         }
 
         private void Compute_Click(object sender, RoutedEventArgs e)

@@ -337,4 +337,28 @@
   <data name="ImageSaved" xml:space="preserve">
     <value>Image saved</value>
   </data>
+  <data name="PageUrlEncode" xml:space="preserve">
+    <value>URL Encode/Decode</value>
+  </data>
+  <data name="URLEncode" xml:space="preserve">
+    <value>URL Encode</value>
+  </data>
+  <data name="URLDecode" xml:space="preserve">
+    <value>URL Decode</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="EncodeFailed" xml:space="preserve">
+    <value>Encode failed</value>
+  </data>
+  <data name="InputEmpty" xml:space="preserve">
+    <value>Input is empty</value>
+  </data>
+  <data name="OutputEmpty" xml:space="preserve">
+    <value>Output is empty</value>
+  </data>
 </root>

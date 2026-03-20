@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using DevTools.Helpers;
 using DevTools.Resources;
 using MessageBox = System.Windows.MessageBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
@@ -30,11 +32,31 @@ namespace DevTools.Pages
         public Base64ImagePage()
         {
             InitializeComponent();
+            LoadState();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            SaveState();
             NavigationService?.Navigate(new HomePage());
+        }
+
+        private void SaveState()
+        {
+            var state = new Dictionary<string, string>
+            {
+                { "InputText", InputText.Text ?? string.Empty }
+            };
+            PageStateManager.SavePageState(this, state);
+        }
+
+        private void LoadState()
+        {
+            var state = PageStateManager.GetPageState(this);
+            if (state != null)
+            {
+                InputText.Text = state.GetValueOrDefault("InputText", string.Empty);
+            }
         }
 
         private void Decode_Click(object sender, RoutedEventArgs e)

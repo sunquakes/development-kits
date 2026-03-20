@@ -59,7 +59,7 @@
                                                 <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf070;" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Grid>
                                         </Grid>
-                                        <TextBlock Text="{Binding Text}" Margin="0,8,0,0" TextWrapping="Wrap" TextAlignment="Center" Width="400" />
+                                        <TextBox Text="{Binding Text}" Margin="0,8,0,0" TextWrapping="Wrap" TextAlignment="Center" Width="400" IsReadOnly="True" BorderThickness="0" Background="Transparent" VerticalContentAlignment="Center" />
                                     </StackPanel>
 
                                     <!-- Right column: controls -->

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,11 +18,36 @@ namespace DevTools.Pages
         public ImageToBase64Page()
         {
             InitializeComponent();
+            LoadState();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            SaveState();
             NavigationService?.Navigate(new HomePage());
+        }
+
+        private void SaveState()
+        {
+            var state = new Dictionary<string, string>
+            {
+                { "Base64Text", Base64Text.Text ?? string.Empty },
+                { "IncludeDataUri", IncludeDataUriCheck.IsChecked?.ToString() ?? "false" }
+            };
+            PageStateManager.SavePageState(this, state);
+        }
+
+        private void LoadState()
+        {
+            var state = PageStateManager.GetPageState(this);
+            if (state != null)
+            {
+                Base64Text.Text = state.GetValueOrDefault("Base64Text", string.Empty);
+                if (state.TryGetValue("IncludeDataUri", out var includeDataUriStr) && bool.TryParse(includeDataUriStr, out var includeDataUri))
+                {
+                    IncludeDataUriCheck.IsChecked = includeDataUri;
+                }
+            }
         }
 
         private void SelectImage_Click(object sender, RoutedEventArgs e)

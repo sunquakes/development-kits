@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -5,7 +6,6 @@ using System.Windows.Input;
 using System.Text.Json;
 using DevTools.Helpers;
 using DevTools.Resources;
-using System.Collections.Generic;
 using Button = System.Windows.Controls.Button;
 using TextBox = System.Windows.Controls.TextBox;
 using Panel = System.Windows.Controls.Panel;
@@ -22,11 +22,33 @@ namespace DevTools.Pages
         public JsonFormatPage()
         {
             InitializeComponent();
+            LoadState();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            SaveState();
             NavigationService?.Navigate(new HomePage());
+        }
+
+        private void SaveState()
+        {
+            var state = new Dictionary<string, string>
+            {
+                { "InputText", InputText.Text ?? string.Empty },
+                { "LastFormattedJson", _lastFormattedJson }
+            };
+            PageStateManager.SavePageState(this, state);
+        }
+
+        private void LoadState()
+        {
+            var state = PageStateManager.GetPageState(this);
+            if (state != null)
+            {
+                InputText.Text = state.GetValueOrDefault("InputText", string.Empty);
+                _lastFormattedJson = state.GetValueOrDefault("LastFormattedJson", string.Empty);
+            }
         }
 
         private void Format_Click(object sender, RoutedEventArgs e)

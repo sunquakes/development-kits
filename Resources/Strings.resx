@@ -295,4 +295,28 @@
   <data name="ImageSaved" xml:space="preserve">
     <value>图片已保存</value>
   </data>
+  <data name="PageUrlEncode" xml:space="preserve">
+    <value>URL 编码解码</value>
+  </data>
+  <data name="URLEncode" xml:space="preserve">
+    <value>URL 编码</value>
+  </data>
+  <data name="URLDecode" xml:space="preserve">
+    <value>URL 解码</value>
+  </data>
+  <data name="Input" xml:space="preserve">
+    <value>输入</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>输出</value>
+  </data>
+  <data name="EncodeFailed" xml:space="preserve">
+    <value>编码失败</value>
+  </data>
+  <data name="InputEmpty" xml:space="preserve">
+    <value>输入为空</value>
+  </data>
+  <data name="OutputEmpty" xml:space="preserve">
+    <value>输出为空</value>
+  </data>
 </root>
