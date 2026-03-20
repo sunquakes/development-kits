@@ -25,6 +25,7 @@
 - **QR Code Generator** - Generate QR codes for text/URLs
 - **Base64 ↔ Image** - Convert between Base64 strings and images
 - **JSON Formatter** - Format, expand, and collapse JSON data
+- **URL Encode/Decode** - Encode and decode URL strings
 - **Handwritten Signature** - Draw signatures and convert to Base64 or save as images
 
 ## Installation
@@ -78,6 +79,7 @@ DevTools/
 │   ├── Base64ImagePage.xaml
 │   ├── ImageToBase64Page.xaml
 │   ├── JsonFormatPage.xaml
+│   ├── UrlEncodePage.xaml
 │   └── SignaturePage.xaml
 ├── Resources/          # Resources (images, strings, fonts)
 │   ├── Images/
