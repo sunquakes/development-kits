@@ -40,9 +40,14 @@
 
         <!-- Collapsible formatted JSON display -->
         <Border Grid.Row="4" BorderBrush="LightGray" BorderThickness="1" Padding="4">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
                 <StackPanel x:Name="JsonOutputPanel" />
-            </ScrollViewer>
+                <Border x:Name="LoadingOverlay" Background="#80000000" Visibility="Collapsed">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="处理中..." FontSize="16" Foreground="White" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Border>
     </Grid>
 </Page>

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -18,6 +20,8 @@ namespace DevTools.Pages
     {
         private string _lastFormattedJson = string.Empty;
         private readonly List<Expander> _allExpanders = new List<Expander>();
+        private const int MaxNestingDepth = 20;
+        private const int MaxElementCount = 10000;
 
         public JsonFormatPage()
         {
@@ -51,7 +55,7 @@ namespace DevTools.Pages
             }
         }
 
-        private void Format_Click(object sender, RoutedEventArgs e)
+        private async void Format_Click(object sender, RoutedEventArgs e)
         {
             var json = InputText.Text ?? string.Empty;
             if (string.IsNullOrWhiteSpace(json))
@@ -62,68 +66,130 @@ namespace DevTools.Pages
 
             _allExpanders.Clear();
             JsonOutputPanel.Children.Clear();
+            LoadingOverlay.Visibility = Visibility.Visible;
 
             try
             {
-                using var doc = JsonDocument.Parse(json);
-                var root = doc.RootElement;
+                await Task.Run(() =>
+                {
+                    using var doc = JsonDocument.Parse(json, new JsonDocumentOptions
+                    {
+                        MaxDepth = MaxNestingDepth
+                    });
+                    var root = doc.RootElement;
 
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                var formatted = JsonSerializer.Serialize(root, options);
-                _lastFormattedJson = formatted;
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    var formatted = JsonSerializer.Serialize(root, options);
+                    _lastFormattedJson = formatted;
 
-                if (root.ValueKind == JsonValueKind.Object)
-                {
-                    var outer = new StackPanel();
-                    outer.Children.Add(new TextBlock
+                    Dispatcher.Invoke(() =>
                     {
-                        Text = "{",
-                        FontFamily = new System.Windows.Media.FontFamily("Consolas")
+                        try
+                        {
+                            int elementCount = 0;
+                            if (root.ValueKind == JsonValueKind.Object)
+                            {
+                                var outer = new StackPanel();
+                                outer.Children.Add(new TextBlock
+                                {
+                                    Text = "{",
+                                    FontFamily = new System.Windows.Media.FontFamily("Consolas")
+                                });
+                                foreach (var prop in root.EnumerateObject())
+                                {
+                                    if (elementCount++ >= MaxElementCount)
+                                    {
+                                        outer.Children.Add(new TextBlock
+                                        {
+                                            Text = "... (更多元素已省略)",
+                                            FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                                            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0)),
+                                            Margin = new Thickness(4, 2, 0, 2)
+                                        });
+                                        break;
+                                    }
+                                    outer.Children.Add(CreateVisualForElement(prop.Name, prop.Value, ref elementCount));
+                                }
+                                outer.Children.Add(new TextBlock
+                                {
+                                    Text = "}",
+                                    FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                                    Margin = new Thickness(4, 2, 0, 2)
+                                });
+                                JsonOutputPanel.Children.Add(outer);
+                            }
+                            else if (root.ValueKind == JsonValueKind.Array)
+                            {
+                                var outer = new StackPanel();
+                                outer.Children.Add(new TextBlock
+                                {
+                                    Text = "[",
+                                    FontFamily = new System.Windows.Media.FontFamily("Consolas")
+                                });
+                                foreach (var el in root.EnumerateArray())
+                                {
+                                    if (elementCount++ >= MaxElementCount)
+                                    {
+                                        outer.Children.Add(new TextBlock
+                                        {
+                                            Text = "... (更多元素已省略)",
+                                            FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                                            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0)),
+                                            Margin = new Thickness(4, 2, 0, 2)
+                                        });
+                                        break;
+                                    }
+                                    outer.Children.Add(CreateVisualForElement(string.Empty, el, ref elementCount));
+                                }
+                                outer.Children.Add(new TextBlock
+                                {
+                                    Text = "]",
+                                    FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                                    Margin = new Thickness(4, 2, 0, 2)
+                                });
+                                JsonOutputPanel.Children.Add(outer);
+                            }
+                            else
+                            {
+                                JsonOutputPanel.Children.Add(CreateVisualForElement(string.Empty, root, ref elementCount));
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{Strings.JSONFormatFailed}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
+                        finally
+                        {
+                            LoadingOverlay.Visibility = Visibility.Collapsed;
+                        }
                     });
-                    foreach (var prop in root.EnumerateObject())
-                    {
-                        outer.Children.Add(CreateVisualForElement(prop.Name, prop.Value));
-                    }
-                    outer.Children.Add(new TextBlock
-                    {
-                        Text = "}",
-                        FontFamily = new System.Windows.Media.FontFamily("Consolas"),
-                        Margin = new Thickness(4, 2, 0, 2)
-                    });
-                    JsonOutputPanel.Children.Add(outer);
-                }
-                else if (root.ValueKind == JsonValueKind.Array)
-                {
-                    var outer = new StackPanel();
-                    outer.Children.Add(new TextBlock
-                    {
-                        Text = "[",
-                        FontFamily = new System.Windows.Media.FontFamily("Consolas")
-                    });
-                    foreach (var el in root.EnumerateArray())
-                    {
-                        outer.Children.Add(CreateVisualForElement(string.Empty, el));
-                    }
-                    outer.Children.Add(new TextBlock
-                    {
-                        Text = "]",
-                        FontFamily = new System.Windows.Media.FontFamily("Consolas"),
-                        Margin = new Thickness(4, 2, 0, 2)
-                    });
-                    JsonOutputPanel.Children.Add(outer);
-                }
-                else
-                {
-                    JsonOutputPanel.Children.Add(CreateVisualForElement(string.Empty, root));
-                }
+                });
             }
             catch (JsonException ex)
             {
+                LoadingOverlay.Visibility = Visibility.Collapsed;
                 MessageBox.Show($"{Strings.JSONFormatFailed}: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            catch (Exception ex)
+            {
+                LoadingOverlay.Visibility = Visibility.Collapsed;
+                MessageBox.Show($"处理JSON时出错: {ex.Message}", Strings.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-        private UIElement CreateVisualForElement(string name, JsonElement el)
+
+        private UIElement CreateVisualForElement(string name, JsonElement el, ref int elementCount)
         {
+            if (elementCount >= MaxElementCount)
+            {
+                return new TextBlock
+                {
+                    Text = "...",
+                    FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                    Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(128, 128, 128)),
+                    Margin = new Thickness(4, 2, 0, 2)
+                };
+            }
+
             switch (el.ValueKind)
             {
                 case JsonValueKind.Object:
@@ -167,7 +233,18 @@ namespace DevTools.Pages
                         var panel = new StackPanel { Margin = new Thickness(12, 4, 0, 4) };
                         foreach (var p in el.EnumerateObject())
                         {
-                            panel.Children.Add(CreateVisualForElement(p.Name, p.Value));
+                            if (elementCount++ >= MaxElementCount)
+                            {
+                                panel.Children.Add(new TextBlock
+                                {
+                                    Text = "... (更多元素已省略)",
+                                    FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                                    Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0)),
+                                    Margin = new Thickness(4, 2, 0, 2)
+                                });
+                                break;
+                            }
+                            panel.Children.Add(CreateVisualForElement(p.Name, p.Value, ref elementCount));
                         }
 
                         var closing = new TextBlock
@@ -226,7 +303,18 @@ namespace DevTools.Pages
                         var panel = new StackPanel { Margin = new Thickness(12, 4, 0, 4) };
                         foreach (var v in el.EnumerateArray())
                         {
-                            panel.Children.Add(CreateVisualForElement(string.Empty, v));
+                            if (elementCount++ >= MaxElementCount)
+                            {
+                                panel.Children.Add(new TextBlock
+                                {
+                                    Text = "... (更多元素已省略)",
+                                    FontFamily = new System.Windows.Media.FontFamily("Consolas"),
+                                    Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 165, 0)),
+                                    Margin = new Thickness(4, 2, 0, 2)
+                                });
+                                break;
+                            }
+                            panel.Children.Add(CreateVisualForElement(string.Empty, v, ref elementCount));
                         }
 
                         var closing = new TextBlock
@@ -245,6 +333,7 @@ namespace DevTools.Pages
                     }
                 case JsonValueKind.String:
                     {
+                        elementCount++;
                         var text = $"{name}: \"{el.GetString()}\"";
                         var tb = new TextBox
                         {
@@ -260,30 +349,27 @@ namespace DevTools.Pages
                             Focusable = true,
                             Template = CreateNoUnderlineTemplate()
                         };
+                        var textBox = tb;
                         tb.MouseDoubleClick += (s, e) =>
                         {
-                            var colonIndex = text.IndexOf(':');
-                            if (colonIndex >= 0)
+                            try
                             {
-                                var firstQuote = text.IndexOf('"', colonIndex);
-                                if (firstQuote >= 0)
+                                var colonIndex = text.IndexOf(':');
+                                if (colonIndex >= 0)
                                 {
-                                    // Find the closing quote by searching for the next unescaped quote
-                                    var lastQuote = firstQuote + 1;
-                                    while (lastQuote < text.Length)
+                                    var firstQuote = text.IndexOf('"', colonIndex);
+                                    if (firstQuote >= 0)
                                     {
-                                        if (text[lastQuote] == '"' && (lastQuote == 0 || text[lastQuote - 1] != '\\'))
+                                        var lastQuote = text.LastIndexOf('"');
+                                        if (lastQuote > firstQuote)
                                         {
-                                            break;
+                                            textBox.Select(firstQuote + 1, lastQuote - firstQuote - 1);
                                         }
-                                        lastQuote++;
-                                    }
-                                    
-                                    if (lastQuote > firstQuote && lastQuote < text.Length)
-                                    {
-                                        tb.Select(firstQuote + 1, lastQuote - firstQuote - 1);
                                     }
                                 }
+                            }
+                            catch
+                            {
                             }
                         };
                         AddContextMenu(tb);
@@ -294,6 +380,7 @@ namespace DevTools.Pages
                 case JsonValueKind.False:
                 case JsonValueKind.Null:
                     {
+                        elementCount++;
                         var val = el.ValueKind == JsonValueKind.Null ? "null" : el.ToString();
                         var text = $"{name}: {val}";
                         var tb = new TextBox
@@ -309,20 +396,20 @@ namespace DevTools.Pages
                             Focusable = true,
                             Template = CreateNoUnderlineTemplate()
                         };
+                        var textBox = tb;
                         tb.MouseDoubleClick += (s, e) =>
                         {
-                            var colonIndex = text.IndexOf(':');
-                            if (colonIndex >= 0)
+                            try
                             {
-                                var valueStart = colonIndex + 1;
-                                while (valueStart < text.Length && char.IsWhiteSpace(text[valueStart]))
+                                var colonIndex = text.IndexOf(':');
+                                if (colonIndex >= 0 && colonIndex < text.Length - 1)
                                 {
-                                    valueStart++;
+                                    var valueStart = colonIndex + 1;
+                                    textBox.Select(valueStart, text.Length - valueStart);
                                 }
-                                if (valueStart < text.Length)
-                                {
-                                    tb.Select(valueStart, text.Length - valueStart);
-                                }
+                            }
+                            catch
+                            {
                             }
                         };
                         AddContextMenu(tb);
@@ -330,6 +417,7 @@ namespace DevTools.Pages
                     }
                 default:
                     {
+                        elementCount++;
                         var val = el.ToString();
                         var text = $"{name}: {val}";
                         var tb = new TextBox
@@ -345,20 +433,20 @@ namespace DevTools.Pages
                             Focusable = true,
                             Template = CreateNoUnderlineTemplate()
                         };
+                        var textBox2 = tb;
                         tb.MouseDoubleClick += (s, e) =>
                         {
-                            var colonIndex = text.IndexOf(':');
-                            if (colonIndex >= 0)
+                            try
                             {
-                                var valueStart = colonIndex + 1;
-                                while (valueStart < text.Length && char.IsWhiteSpace(text[valueStart]))
+                                var colonIndex = text.IndexOf(':');
+                                if (colonIndex >= 0 && colonIndex < text.Length - 1)
                                 {
-                                    valueStart++;
+                                    var valueStart = colonIndex + 1;
+                                    textBox2.Select(valueStart, text.Length - valueStart);
                                 }
-                                if (valueStart < text.Length)
-                                {
-                                    tb.Select(valueStart, text.Length - valueStart);
-                                }
+                            }
+                            catch
+                            {
                             }
                         };
                         AddContextMenu(tb);

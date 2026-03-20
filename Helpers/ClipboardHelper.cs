@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -9,6 +10,7 @@ using Button = System.Windows.Controls.Button;
 using Clipboard = System.Windows.Clipboard;
 using Color = System.Windows.Media.Color;
 using Brushes = System.Windows.Media.Brushes;
+using WpfApplication = System.Windows.Application;
 
 namespace DevTools.Helpers
 {
@@ -97,35 +99,121 @@ namespace DevTools.Helpers
                 _lastCopyTime = now;
             }
 
-            bool success = false;
-            for (int i = 0; i < 3; i++)
+            var isLargeData = text.Length > 10000;
+            
+            if (isLargeData)
             {
+                Task.Run(() =>
+                {
+                    bool success = false;
+                    try
+                        {
+                            WpfApplication.Current.Dispatcher.Invoke(() =>
+                            {
+                                try
+                                {
+                                    Clipboard.Clear();
+                                    Clipboard.SetText(text);
+                                    Clipboard.Flush();
+                                    success = true;
+                                }
+                                catch
+                                {
+                                }
+                            });
+                        }
+                        catch
+                        {
+                            for (int i = 0; i < 2; i++)
+                            {
+                                try
+                                {
+                                    Thread.Sleep(50);
+                                    WpfApplication.Current.Dispatcher.Invoke(() =>
+                                    {
+                                        try
+                                        {
+                                            Clipboard.Clear();
+                                            Clipboard.SetText(text);
+                                            Clipboard.Flush();
+                                            success = true;
+                                        }
+                                        catch
+                                        {
+                                        }
+                                    });
+                                    if (success) break;
+                                }
+                                catch
+                                {
+                                }
+                            }
+                        }
+
+                        if (success)
+                        {
+                            if (button != null)
+                            {
+                                WpfApplication.Current.Dispatcher.Invoke(() =>
+                                {
+                                    ShowToast(Resources.Strings.CopySuccess, button, false);
+                                });
+                            }
+                        }
+                        else
+                        {
+                            if (button != null)
+                            {
+                                WpfApplication.Current.Dispatcher.Invoke(() =>
+                                {
+                                    ShowToast("复制失败，请重试", button, true);
+                                });
+                            }
+                        }
+                });
+            }
+            else
+            {
+                bool success = false;
                 try
                 {
                     Clipboard.Clear();
                     Clipboard.SetText(text);
                     Clipboard.Flush();
                     success = true;
-                    break;
                 }
                 catch
                 {
-                    Thread.Sleep(50);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        try
+                        {
+                            Thread.Sleep(50);
+                            Clipboard.Clear();
+                            Clipboard.SetText(text);
+                            Clipboard.Flush();
+                            success = true;
+                            break;
+                        }
+                        catch
+                        {
+                        }
+                    }
                 }
-            }
 
-            if (success)
-            {
-                if (button != null)
+                if (success)
                 {
-                    ShowToast(Resources.Strings.CopySuccess, button, false);
+                    if (button != null)
+                    {
+                        ShowToast(Resources.Strings.CopySuccess, button, false);
+                    }
                 }
-            }
-            else
-            {
-                if (button != null)
+                else
                 {
-                    ShowToast("复制失败，请重试", button, true);
+                    if (button != null)
+                    {
+                        ShowToast("复制失败，请重试", button, true);
+                    }
                 }
             }
         }
