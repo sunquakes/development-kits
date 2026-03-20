@@ -30,10 +30,10 @@
         
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,10">
             <Button Click="Encode_Click" Width="100" Height="32" ToolTip="{x:Static resources:Strings.URLEncode}">
-                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf023;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                <TextBlock Text="{x:Static resources:Strings.URLEncode}" FontSize="12" FontWeight="Bold" Foreground="#FFFFFF" />
             </Button>
             <Button Click="Decode_Click" Margin="8,0,0,0" Width="100" Height="32" ToolTip="{x:Static resources:Strings.URLDecode}">
-                <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c0;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />
+                <TextBlock Text="{x:Static resources:Strings.URLDecode}" FontSize="12" FontWeight="Bold" Foreground="#FFFFFF" />
             </Button>
             <Button Click="CopyOutput_Click" Margin="8,0,0,0" Width="80" Height="32" ToolTip="{x:Static resources:Strings.Copy}">
                 <TextBlock FontFamily="{StaticResource FontAwesomeSolid}" Text="&#xf0c5;" FontSize="16" FontWeight="Bold" Foreground="#FFFFFF" />

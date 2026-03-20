@@ -43,6 +43,30 @@ namespace DevTools.Pages
             {
                 { "InputText", InputText.Text ?? string.Empty }
             };
+
+            var logsData = new List<Dictionary<string, string>>();
+            foreach (var entry in _logs)
+            {
+                if (entry.Bitmap != null)
+                {
+                    using var ms = new MemoryStream();
+                    entry.Bitmap.Save(ms, ImageFormat.Png);
+                    var base64 = Convert.ToBase64String(ms.ToArray());
+                    logsData.Add(new Dictionary<string, string>
+                    {
+                        { "Text", entry.Text ?? string.Empty },
+                        { "Timestamp", entry.Timestamp.ToString("O") },
+                        { "ImageBase64", base64 },
+                        { "IsImageVisible", entry.IsImageVisible.ToString() }
+                    });
+                }
+            }
+
+            if (logsData.Count > 0)
+            {
+                state["Logs"] = System.Text.Json.JsonSerializer.Serialize(logsData);
+            }
+
             PageStateManager.SavePageState(this, state);
         }
 
@@ -52,6 +76,44 @@ namespace DevTools.Pages
             if (state != null)
             {
                 InputText.Text = state.GetValueOrDefault("InputText", string.Empty);
+
+                if (state.TryGetValue("Logs", out var logsJson) && !string.IsNullOrEmpty(logsJson))
+                {
+                    try
+                    {
+                        var logsData = System.Text.Json.JsonSerializer.Deserialize<List<Dictionary<string, string>>>(logsJson);
+                        if (logsData != null)
+                        {
+                            foreach (var logData in logsData)
+                            {
+                                var text = logData.GetValueOrDefault("Text", string.Empty);
+                                var timestampStr = logData.GetValueOrDefault("Timestamp", string.Empty);
+                                var base64 = logData.GetValueOrDefault("ImageBase64", string.Empty);
+                                var isVisibleStr = logData.GetValueOrDefault("IsImageVisible", "true");
+
+                                if (DateTime.TryParse(timestampStr, out var timestamp) && !string.IsNullOrEmpty(base64))
+                                {
+                                    var bytes = Convert.FromBase64String(base64);
+                                    using var ms = new MemoryStream(bytes);
+                                    var bitmap = new Bitmap(ms);
+                                    var imageSource = BitmapToImageSource(bitmap);
+
+                                    var entry = new QrLogEntry
+                                    {
+                                        Bitmap = bitmap,
+                                        Image = imageSource,
+                                        Text = text,
+                                        Timestamp = timestamp,
+                                        IsImageVisible = bool.Parse(isVisibleStr)
+                                    };
+                                    entry.TimestampString = entry.Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+                                    _logs.Add(entry);
+                                }
+                            }
+                        }
+                    }
+                    catch { }
+                }
             }
         }
 

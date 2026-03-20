@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.2.0] - 2025-03-20
+
+### Added
+- QR Code and Barcode page state persistence
+  - Generated results are now saved and restored on app restart
+  - Images stored as Base64 in local state file
+
+### Changed
+- URL Encode/Decode page button layout
+  - Button order changed to: URLEncode | URLDecode | Copy
+  - Buttons now use text labels instead of icons for better clarity
+
+---
+
 ## [1.1.0] - 2025-03-12
 
 ### Added
